@@ -9,19 +9,21 @@ using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 
 namespace Scripts.Buff
 {
-    public class DamageReduceFixed:IDamageReduceFixedBuff
+    public class DamageReduceFixed:IDamageReduceFixedBuff,IBuffTimeDataComponent
     {
         public float Value { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Type { get; set; }
+        public float Duration { get; set; }
     }
 
-    public class DamageReducePercentage:IDamageReducePercentageBuff
+    public class DamageReducePercentage:IDamageReducePercentageBuff,IBuffTimeDataComponent
     {
         public float Value { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Type { get; set; }
+        public float Duration { get; set; }
     }
 }
