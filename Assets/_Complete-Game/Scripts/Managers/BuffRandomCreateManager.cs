@@ -41,11 +41,21 @@ namespace CompleteProject
             buffGo.transform.position += Vector3.up;
             var buffC = buffGo.GetComponent<BuffComponent>();
             
-            var buff = BuffFactory.GetBuff(Random.Range(1, 11),out var color);
+            var buff = BuffFactory.GetBuff(Random.Range(1, 15),out var color);
 
             var render = buffGo.GetComponent<Renderer>();
 
             render.sharedMaterial.color = color;
+
+            if (buff is IBuffType type)
+            {
+                type.Type = Random.Range(1, 4);
+            }
+            
+            if (buff is IBuffTimeDataComponent time)
+            {
+                time.Duration = Random.Range(1, 5f);
+            }
 
             if (buff is IBuffValueDataComponent value)
             {
@@ -57,7 +67,7 @@ namespace CompleteProject
                         goto end;
                     }
                 }
-                
+
                 value.Value = Random.Range(10, 20);
             }
             
@@ -112,6 +122,10 @@ namespace CompleteProject
                     buff = new DamageReduceFixed();
                     break;
                 case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
                     color = Color.cyan;
                     buff = new DamageReducePercentage();
                     break;

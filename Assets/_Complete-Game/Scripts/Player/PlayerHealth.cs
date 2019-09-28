@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs.Unity;
+using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems.Interfaces;
 using Scripts.Buff;
@@ -10,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 namespace CompleteProject
 {
-    public class PlayerHealth : MonoBehaviour,IEntity
+    public class PlayerHealth : MonoBehaviour,IEntity,IBuffDestroySystem
     {
         public int startingHealth = 100;                            // The amount of health the player starts the game with.
         
@@ -53,7 +54,7 @@ namespace CompleteProject
             
             GameManager.Manager.BuffManager.AddBuff(this,_buff);
             GameManager.Manager.BuffManager.AddBuff(this,new Mechanics(MechanicsType.Health){Value = startingHealth});
-            
+            GameManager.Manager.BuffManager.AddBuffSystem(this);
 
 #if UNITY_EDITOR
             var link = gameObject.AddComponent < BuffEntityLinkComponent>();
@@ -93,9 +94,6 @@ namespace CompleteProject
 
             GameManager.Manager.BuffManager.AddBuff(this,damage);
             
-            // Set the health bar's value to the current health.
-            healthSlider.value = currentHealth;
-
             // Play the hurt sound effect.
             playerAudio.Play ();
 
@@ -130,6 +128,17 @@ namespace CompleteProject
         {
             // Reload the level that is currently loaded.
             SceneManager.LoadScene (0);
+        }
+
+        public bool Filter(IEntity entity, IBuffDataComponent buff)
+        {
+            return buff is IDamageBuff || buff is ILifesteal;
+        }
+
+        public void Destroy(IEntity entity, IBuffDataComponent buff)
+        {
+            // Set the health bar's value to the current health.
+            healthSlider.value = _buff.Value;
         }
     }
 }
