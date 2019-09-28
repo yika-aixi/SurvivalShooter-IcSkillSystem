@@ -54,7 +54,7 @@ namespace CompleteProject
             
             if (buff is IBuffTimeDataComponent time)
             {
-                time.Duration = Random.Range(1, 5f);
+                time.Duration = Random.Range(1, 10.5f);
             }
 
             if (buff is IBuffValueDataComponent value)
