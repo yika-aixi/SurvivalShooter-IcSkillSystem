@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Scripts.Buff;
 
 namespace CompleteProject
 {
@@ -7,7 +8,7 @@ namespace CompleteProject
     {
         public float timeBetweenAttacks = 0.5f;     // The time in seconds between each attack.
         public int attackDamage = 10;               // The amount of health taken away per attack.
-
+        public int DamageType = 1;
 
         Animator anim;                              // Reference to the animator component.
         GameObject player;                          // Reference to the player GameObject.
@@ -78,8 +79,12 @@ namespace CompleteProject
             // If the player has health to lose...
             if(playerHealth.currentHealth > 0)
             {
-                // ... damage the player.
-                playerHealth.TakeDamage (attackDamage);
+                playerHealth.TakeDamage(new Damage()
+                {
+                    Value = attackDamage,
+                    Maker = enemyHealth,
+                    Type = DamageType
+                });
             }
         }
     }

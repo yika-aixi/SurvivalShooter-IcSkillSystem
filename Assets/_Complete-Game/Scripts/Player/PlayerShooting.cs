@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using Scripts.Buff;
+using UnityEngine;
 using UnitySampleAssets.CrossPlatformInput;
 
 namespace CompleteProject
 {
     public class PlayerShooting : MonoBehaviour
     {
+        public PlayerHealth Player;
+        public int DamageType = 1;
         public int damagePerShot = 20;                  // The damage inflicted by each bullet.
         public float timeBetweenBullets = 0.15f;        // The time between each shot.
         public float range = 100f;                      // The distance the gun can fire.
@@ -108,7 +111,12 @@ namespace CompleteProject
                 if(enemyHealth != null)
                 {
                     // ... the enemy should take damage.
-                    enemyHealth.TakeDamage (damagePerShot, shootHit.point);
+                    enemyHealth.TakeDamage (new Damage()
+                    {
+                        Value = damagePerShot,
+                        Maker = Player,
+                        Type = DamageType
+                    }, shootHit.point);
                 }
 
                 // Set the second position of the line renderer to the point the raycast hit.

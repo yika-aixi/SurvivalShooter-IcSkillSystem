@@ -1,11 +1,21 @@
-﻿using UnityEngine;
+﻿using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs.Unity;
+using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
+using Scripts.Buff;
+using UnityEngine;
 
 namespace CompleteProject
 {
-    public class EnemyHealth : MonoBehaviour
+    public class EnemyHealth : MonoBehaviour,IEntity
     {
         public int startingHealth = 100;            // The amount of health the enemy starts the game with.
-        public int currentHealth;                   // The current health the enemy has.
+
+        public int currentHealth
+        {
+            get => (int) _buff.Value;
+            set => _buff.Value = Mathf.Clamp(value,0,startingHealth);
+        }
+        // The current health the enemy has.
         public float sinkSpeed = 2.5f;              // The speed at which the enemy sinks through the floor when dead.
         public int scoreValue = 10;                 // The amount added to the player's score when the enemy dies.
         public AudioClip deathClip;                 // The sound to play when the enemy dies.
@@ -18,6 +28,11 @@ namespace CompleteProject
         bool isDead;                                // Whether the enemy is dead.
         bool isSinking;                             // Whether the enemy has started sinking through the floor.
 
+        #region Buff
+
+        private IMechanicBuff _buff;
+
+        #endregion
 
         void Awake ()
         {
@@ -27,10 +42,21 @@ namespace CompleteProject
             hitParticles = GetComponentInChildren <ParticleSystem> ();
             capsuleCollider = GetComponent <CapsuleCollider> ();
 
-            // Setting the current health when the enemy first spawns.
-            currentHealth = startingHealth;
+            _buff = new Mechanics(MechanicsType.Health);
+            _buff.Value = startingHealth;
+            
+            GameManager.Manager.BuffManager.AddBuff(this,_buff);
+            GameManager.Manager.BuffManager.AddBuff(this,new Mechanics(MechanicsType.Health){Value = startingHealth});
+            
+//            // Setting the current health when the enemy first spawns.
+//            currentHealth = startingHealth;
+            
+#if UNITY_EDITOR
+            var link = gameObject.AddComponent <BuffEntityLinkComponent>();
+            
+            link.Init(GameManager.Manager.BuffManager,this);
+#endif
         }
-
 
         void Update ()
         {
@@ -43,18 +69,20 @@ namespace CompleteProject
         }
 
 
-        public void TakeDamage (int amount, Vector3 hitPoint)
+        public void TakeDamage(IDamageBuff damage, Vector3 hitPoint)
         {
             // If the enemy is dead...
-            if(isDead)
+            if(GameManager.Manager.BuffManager.HasBuff<Death>(this))
                 // ... no need to take damage so exit the function.
                 return;
 
             // Play the hurt sound effect.
             enemyAudio.Play ();
+            
+            GameManager.Manager.BuffManager.AddBuff(this,damage);
 
-            // Reduce the current health by the amount of damage sustained.
-            currentHealth -= amount;
+//            // Reduce the current health by the amount of damage sustained.
+//            currentHealth -= amount;
             
             // Set the position of the particle system to where the hit was sustained.
             hitParticles.transform.position = hitPoint;
