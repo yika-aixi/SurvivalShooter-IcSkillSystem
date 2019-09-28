@@ -1,4 +1,5 @@
 ﻿using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs.Unity;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using Scripts.Buff;
@@ -9,7 +10,8 @@ namespace CompleteProject
     public class EnemyHealth : MonoBehaviour,IEntity
     {
         public int startingHealth = 100;            // The amount of health the enemy starts the game with.
-
+        public int _cuu;
+        [field:SerializeField]
         public int currentHealth
         {
             get => (int) _buff.Value;
@@ -25,7 +27,6 @@ namespace CompleteProject
         AudioSource enemyAudio;                     // Reference to the audio source.
         ParticleSystem hitParticles;                // Reference to the particle system that plays when the enemy is damaged.
         CapsuleCollider capsuleCollider;            // Reference to the capsule collider.
-        bool isDead;                                // Whether the enemy is dead.
         bool isSinking;                             // Whether the enemy has started sinking through the floor.
 
         #region Buff
@@ -41,12 +42,16 @@ namespace CompleteProject
             enemyAudio = GetComponent <AudioSource> ();
             hitParticles = GetComponentInChildren <ParticleSystem> ();
             capsuleCollider = GetComponent <CapsuleCollider> ();
-
-            _buff = new Mechanics(MechanicsType.Health);
+            _buff = GameManager.Manager.BuffManager.CreateBuff<Mechanics>();
+            _buff.MechanicsType = MechanicsType.Health;
             _buff.Value = startingHealth;
             
             GameManager.Manager.BuffManager.AddBuff(this,_buff);
-            GameManager.Manager.BuffManager.AddBuff(this,new Mechanics(MechanicsType.Health){Value = startingHealth});
+            GameManager.Manager.BuffManager.CreateAndAddBuff<Mechanics>(this, x =>
+                {
+                    x.MechanicsType = MechanicsType.Health;
+                    x.Value = startingHealth;
+                });
             
 //            // Setting the current health when the enemy first spawns.
 //            currentHealth = startingHealth;
@@ -60,6 +65,7 @@ namespace CompleteProject
 
         void Update ()
         {
+            _cuu = currentHealth;
             // If the enemy should be sinking...
             if(isSinking)
             {
@@ -72,9 +78,13 @@ namespace CompleteProject
         public void TakeDamage(IDamageBuff damage, Vector3 hitPoint)
         {
             // If the enemy is dead...
-            if(GameManager.Manager.BuffManager.HasBuff<Death>(this))
+            if (GameManager.Manager.BuffManager.HasBuff<Death>(this))
+            {
+                Death ();
+
                 // ... no need to take damage so exit the function.
                 return;
+            }
 
             // Play the hurt sound effect.
             enemyAudio.Play ();
@@ -89,21 +99,11 @@ namespace CompleteProject
 
             // And play the particles.
             hitParticles.Play();
-
-            // If the current health is less than or equal to zero...
-            if(currentHealth <= 0)
-            {
-                // ... the enemy is dead.
-                Death ();
-            }
         }
 
 
         void Death ()
         {
-            // The enemy is dead.
-            isDead = true;
-
             // Turn the collider into a trigger so shots can pass through it.
             capsuleCollider.isTrigger = true;
 

@@ -6,6 +6,7 @@
 //Assembly-CSharp
 
 using System;
+using System.Collections.Generic;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
@@ -15,18 +16,15 @@ namespace Scripts.Buff
 {
     public static class Utils
     {
-        public static float GetBuffSumValue<T>(this IEntity entity,Predicate<T> match) where T : IBuffDataComponent,IBuffValueDataComponent
+        public static float GetBuffSumValue<T>(this IEntity entity,List<T> buffBuffer,Predicate<T> match) where T : IBuffDataComponent,IBuffValueDataComponent
         {
+            buffBuffer.Clear();
+            
             float value = 0;
             
-            var buffs = GameManager.Manager.BuffManager.GetBuffs(entity,match);
-
-            if (buffs == null)
-            {
-                return value;
-            }
+            GameManager.Manager.BuffManager.GetBuffs(entity,match,buffBuffer);
             
-            foreach (var buff in buffs)
+            foreach (var buff in buffBuffer)
             {
                 value += buff.Value;
             }

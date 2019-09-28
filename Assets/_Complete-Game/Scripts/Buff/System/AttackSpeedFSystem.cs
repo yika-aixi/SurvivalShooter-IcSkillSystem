@@ -5,6 +5,7 @@
 //2019年09月28日-16:02
 //Assembly-CSharp
 
+using System.Collections.Generic;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
@@ -15,8 +16,11 @@ namespace Scripts.Buff.System
 {
     public class AttackSpeedPercentageSystem:ABuffCreateSystem
     {
+        private List<IMechanicBuff> _buffs;
+
         public AttackSpeedPercentageSystem(IBuffManager buffManager) : base(buffManager)
         {
+            _buffs = new List<IMechanicBuff>();
         }
 
         public override bool Filter(IEntity entity, IBuffDataComponent buff)
@@ -33,17 +37,14 @@ namespace Scripts.Buff.System
                 return;
             }
             
-            var buffs = BuffManager.GetBuffs<IMechanicBuff>(entity, x => x.MechanicsType == MechanicsType.AttackSpeed);
+            BuffManager.GetBuffs(entity, x => x.MechanicsType == MechanicsType.AttackSpeed,_buffs);
 
-            if (buffs != null)
+            if (_buffs.Count > 0)
             {
-                var tor = buffs.GetEnumerator();
 
-                if (tor.MoveNext())
-                {
-                    mechanicBuff.Value *= tor.Current.Value;
-                    return;
-                }
+                mechanicBuff.Value *= _buffs[0].Value;
+                
+                return;
             }
 
             mechanicBuff.Value = 0;

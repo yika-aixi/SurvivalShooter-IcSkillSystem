@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs.Unity;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
@@ -15,6 +16,7 @@ namespace CompleteProject
     {
         public int startingHealth = 100;                            // The amount of health the player starts the game with.
         
+        [field:SerializeField]
         public int currentHealth
         {
             get => (int) _buff.Value;
@@ -48,12 +50,19 @@ namespace CompleteProject
             playerMovement = GetComponent <PlayerMovement> ();
             playerShooting = GetComponentInChildren <PlayerShooting> ();
 
-            _buff = new Mechanics(MechanicsType.Health);
+            _buff = GameManager.Manager.BuffManager.CreateBuff<Mechanics>();
+            _buff.MechanicsType = MechanicsType.Health;
             _buff.Value = startingHealth;
 
             
             GameManager.Manager.BuffManager.AddBuff(this,_buff);
-            GameManager.Manager.BuffManager.AddBuff(this,new Mechanics(MechanicsType.Health){Value = startingHealth});
+            
+            GameManager.Manager.BuffManager.CreateAndAddBuff<Mechanics>(this, x =>
+            {
+                x.Value = startingHealth;
+                x.MechanicsType = MechanicsType.Health;
+            });
+            
             GameManager.Manager.BuffManager.AddBuffSystem(this);
 
 #if UNITY_EDITOR

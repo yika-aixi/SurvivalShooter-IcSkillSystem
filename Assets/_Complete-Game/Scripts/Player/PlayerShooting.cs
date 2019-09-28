@@ -1,4 +1,6 @@
-﻿using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+﻿using System.Collections.Generic;
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using Scripts.Buff;
@@ -31,6 +33,8 @@ namespace CompleteProject
         Light gunLight;                                 // Reference to the light component.
 		public Light faceLight;								// Duh
         float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
+        private List<IMechanicBuff> _buff;
+        private List<IMechanicBuff> _buffs;
 
 
         void Awake ()
@@ -43,6 +47,8 @@ namespace CompleteProject
             gunLine = GetComponent <LineRenderer> ();
             gunAudio = GetComponent<AudioSource> ();
             gunLight = GetComponent<Light> ();
+            _buff = new List<IMechanicBuff>();
+            _buffs = new List<IMechanicBuff>();
 			//faceLight = GetComponentInChildren<Light> ();
         }
 
@@ -81,11 +87,11 @@ namespace CompleteProject
         {
             currentBetweenBulletsTime = timeBetweenBullets;
             
-            currentBetweenBulletsTime -= Player.GetBuffSumValue<IMechanicBuff>(x => x.MechanicsType == MechanicsType.AttackSpeed);
+            currentBetweenBulletsTime -= Player.GetBuffSumValue<IMechanicBuff>(_buff,x => x.MechanicsType == MechanicsType.AttackSpeed);
 
             currentdamagePerShot = damagePerShot;
 
-            currentdamagePerShot += Player.GetBuffSumValue<IMechanicBuff>(x => x.MechanicsType == MechanicsType.Attack);
+            currentdamagePerShot += Player.GetBuffSumValue<IMechanicBuff>(_buffs,x => x.MechanicsType == MechanicsType.Attack);
         }
 
         public void DisableEffects ()
@@ -130,13 +136,12 @@ namespace CompleteProject
                 // If the EnemyHealth component exist...
                 if(enemyHealth != null)
                 {
+                    var damage = GameManager.Manager.BuffManager.CreateBuff<Damage>();
+                    damage.Value = currentdamagePerShot;
+                    damage.Maker = Player;
+                    damage.Type = DamageType;
                     // ... the enemy should take damage.
-                    enemyHealth.TakeDamage (new Damage()
-                    {
-                        Value = currentdamagePerShot,
-                        Maker = Player,
-                        Type = DamageType
-                    }, shootHit.point);
+                    enemyHealth.TakeDamage (damage, shootHit.point);
                 }
 
                 // Set the second position of the line renderer to the point the raycast hit.

@@ -13,13 +13,8 @@ namespace Scripts.Buff
     
     public class Mechanics:IMechanicBuff
     {
-        public Mechanics(MechanicsType mechanicsType)
-        {
-            MechanicsType = mechanicsType;
-        }
-
         public float Value { get; set; }
-        public MechanicsType MechanicsType { get; }
+        public MechanicsType MechanicsType { get; set; }
     }
     
     /// <summary>
@@ -27,23 +22,8 @@ namespace Scripts.Buff
     /// </summary>
     public class MechanicsTime:IMechanicBuff,IBuffTimeDataComponent
     {
-        public MechanicsTime(MechanicsType mechanicsType)
-        {
-            MechanicsType = mechanicsType;
-        }
-
         public float Value { get; set; }
-        public MechanicsType MechanicsType { get; }
+        public MechanicsType MechanicsType { get; set;}
         public float Duration { get; set; }
-    }
-    
-    /// <summary>
-    /// 持续时间的能力 - 百分比
-    /// </summary>
-    public class MechanicsPercentageTime:MechanicsTime,IPercentage
-    {
-        public MechanicsPercentageTime(MechanicsType mechanicsType):base(mechanicsType)
-        {
-        }
     }
 }

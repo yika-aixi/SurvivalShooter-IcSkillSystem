@@ -20,7 +20,7 @@ namespace CompleteProject
         void Spawn ()
         {
             // If the player has no health left...
-            if(playerHealth.currentHealth <= 0f)
+            if(playerHealth.currentHealth <= 0f || !enabled)
             {
                 // ... exit the function.
                 return;

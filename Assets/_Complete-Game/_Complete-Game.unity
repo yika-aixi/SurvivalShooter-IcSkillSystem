@@ -106,10 +106,10 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.75
+    agentRadius: 0.05
     agentHeight: 1.2
     agentSlope: 45
-    agentClimb: 0.6
+    agentClimb: 0.87
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 0.1
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 2023876516}
   enemy: {fileID: 153412, guid: 548c56f4bcf4db24b8aa057e9846a005, type: 3}
-  spawnTime: 15
+  spawnTime: 10
   spawnPoints:
   - {fileID: 933997770}
 --- !u!114 &14871710
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 2023876516}
   enemy: {fileID: 100000, guid: ea3c2728ef33e3a4d99527a86cda6465, type: 3}
-  spawnTime: 3
+  spawnTime: 2
   spawnPoints:
   - {fileID: 1725468539}
 --- !u!114 &14871711
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 2023876516}
   enemy: {fileID: 100002, guid: e5171f72421770240bd7c3989fe351e3, type: 3}
-  spawnTime: 3
+  spawnTime: 2
   spawnPoints:
   - {fileID: 345275349}
 --- !u!4 &14871712
@@ -404,6 +404,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48ff9c3de2d49f5aacc0ec988f6562e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SharedBlackboardKey: Game Shared
+  BuffManagerKey: BuffManager
+  SkillManagerKey: SkillManager
+  CurrentEntityKey: CurrentEntity
+  TargetEntityKey: TargetEntity
 --- !u!4 &101141758
 Transform:
   m_ObjectHideFlags: 0
@@ -1206,7 +1211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameObject: {fileID: 2496502760680070870, guid: 4a71e1317b465b4488a9dea85fc28a65,
     type: 3}
-  spawnTime: 1
+  spawnTime: 0.5
   Points:
   - {fileID: 513249276}
   - {fileID: 214616390}
@@ -3422,6 +3427,10 @@ PrefabInstance:
       propertyPath: damageImage
       value: 
       objectReference: {fileID: 1394906873}
+    - target: {fileID: 11400004, guid: 4e5a0d387dc27394b81600988ad0216f, type: 3}
+      propertyPath: startingHealth
+      value: 2000
+      objectReference: {fileID: 0}
     - target: {fileID: 10800002, guid: 4e5a0d387dc27394b81600988ad0216f, type: 3}
       propertyPath: m_BounceIntensity
       value: .5

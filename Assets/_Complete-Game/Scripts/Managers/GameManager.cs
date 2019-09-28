@@ -10,6 +10,7 @@ using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs.Systems;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs;
 using CabinIcarus.IcSkillSystem.Runtime.Skills.Manager;
+using NPBehave;
 using Scripts.Buff.System;
 using SkillSystem.SkillSystem.Scripts.Expansion.Runtime.Builtin.Skills.Manager;
 using UnityEngine;
@@ -24,15 +25,30 @@ namespace CompleteProject
         public IBuffManager BuffManager;
 
         public ISkillManager SkillManager;
+
+        public string SharedBlackboardKey = "Game Shared";
+        
+        public string BuffManagerKey = "BuffManager";
+        
+        public string SkillManagerKey = "SkillManager";
+
+        public string CurrentEntityKey = "CurrentEntity";
+        
+        public string TargetEntityKey = "TargetEntity";
         
         private void Awake()
         {
             Manager = this;
 
+            var blackboard = UnityContext.GetSharedBlackboard(SharedBlackboardKey);
+
             BuffManager = new BuffManager();
 
             SkillManager = new SkillManager();
-
+            
+            blackboard.Set(BuffManagerKey,BuffManager);
+            
+            blackboard.Set(SkillManagerKey,SkillManager);
 
             BuffManager
                 .AddBuffSystem(new BuffTimeSystem(BuffManager))

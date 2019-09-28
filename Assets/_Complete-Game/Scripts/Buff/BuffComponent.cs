@@ -31,5 +31,10 @@ namespace Scripts.Buff
                 Destroy(gameObject);
             }    
         }
+
+        private void OnDestroy()
+        {
+            Buff = null;
+        }
     }
 }

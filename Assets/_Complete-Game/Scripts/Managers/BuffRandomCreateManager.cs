@@ -6,9 +6,12 @@
 //Assembly-CSharp
 
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
+using CabinIcarus.IcSkillSystem.Runtime.Buffs;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using Scripts.Buff;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CompleteProject
 {
@@ -41,11 +44,11 @@ namespace CompleteProject
             buffGo.transform.position += Vector3.up;
             var buffC = buffGo.GetComponent<BuffComponent>();
             
-            var buff = BuffFactory.GetBuff(Random.Range(1, 15),out var color);
+            var buff = BuffFactory.GeBuff(GameManager.Manager.BuffManager,Random.Range(1, 13), out var color);
 
             var render = buffGo.GetComponent<Renderer>();
 
-            render.sharedMaterial.color = color;
+            render.material.color = color;
 
             if (buff is IBuffType type)
             {
@@ -65,8 +68,13 @@ namespace CompleteProject
                     {
                         value.Value = Random.Range(0.1f, 0.4f);
                         goto end;
+                    }else if (mechanicBuff.MechanicsType == MechanicsType.MoveSpeed)
+                    {
+                        value.Value =  Random.Range(2, 5f);
+                        goto end;
                     }
                 }
+
 
                 value.Value = Random.Range(10, 20);
             }
@@ -79,59 +87,42 @@ namespace CompleteProject
     
     public static class BuffFactory
     {
-        public static IBuffDataComponent GetBuff(int id,out Color color)
+        public static IBuffDataComponent GeBuff(IBuffManager manager,int id,out Color color)
         {
-            IBuffDataComponent buff = null;
-            color = Color.white;
+            color = Color.cyan;
             switch (id)
             {
                 case 1:
-                    color = Color.red;
-                    buff = new MechanicsTime(MechanicsType.Attack);
-                    break;
-                case 2:
-                    color = Color.magenta;
-                    buff = new MechanicsTime(MechanicsType.AttackSpeed);
-                    break;
-                case 3:
-                    color = Color.green;
-                    buff = new MechanicsTime(MechanicsType.MoveSpeed);
-                    break;
                 case 4:
                     color = Color.red;
-                    buff = new MechanicsPercentageTime(MechanicsType.Attack);
-                    break;
+                    var buff = manager.CreateBuff<MechanicsTime>();
+                    buff.MechanicsType = MechanicsType.Attack;
+                    return buff;
+                case 2:
                 case 5:
                     color = Color.magenta;
-                    buff = new MechanicsPercentageTime(MechanicsType.AttackSpeed);
-                    break;
+                    buff = manager.CreateBuff<MechanicsTime>();
+                    buff.MechanicsType = MechanicsType.AttackSpeed;
+                    return buff;
+                case 3:
                 case 6:
                     color = Color.green;
-                    buff = new MechanicsPercentageTime(MechanicsType.MoveSpeed);
-                    break;
+                    buff = manager.CreateBuff<MechanicsTime>();
+                    buff.MechanicsType = MechanicsType.MoveSpeed;
+                    return buff;
                 case 7:
                     color = Color.yellow;
-                    buff = new LifestealFixed();
-                    break;
+                    return manager.CreateBuff<LifestealFixed>();
                 case 8:
                     color = Color.yellow;
-                    buff = new LifestealPercentage();
-                    break;
+                    return manager.CreateBuff<LifestealPercentage>();
                 case 9:
-                    color = Color.cyan;
-                    buff = new DamageReduceFixed();
-                    break;
-                case 10:
                 case 11:
-                case 12:
-                case 13:
-                case 14:
                     color = Color.cyan;
-                    buff = new DamageReducePercentage();
-                    break;
+                    return manager.CreateBuff<DamageReduceFixed>();
             }
-
-            return buff;
+            
+            return manager.CreateBuff<DamageReducePercentage>();;
         }
     }
 }

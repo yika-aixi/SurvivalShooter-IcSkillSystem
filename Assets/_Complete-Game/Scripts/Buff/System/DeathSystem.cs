@@ -5,19 +5,24 @@
 //2019年09月28日-15:11
 //Assembly-CSharp
 
+using System.Collections.Generic;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems;
-using NotImplementedException = System.NotImplementedException;
+using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems.Interfaces;
 
 namespace Scripts.Buff.System
 {
-    public class DeathSystem:ABuffUpdateSystem
+    public class DeathSystem:ABuffUpdateSystem,IBuffCreateSystem
     {
+        private List<IMechanicBuff> _buffs;
+
         public DeathSystem(IBuffManager buffManager) : base(buffManager)
         {
+            _buffs = new List<IMechanicBuff>();
         }
 
 
@@ -29,21 +34,24 @@ namespace Scripts.Buff.System
 
         public override void Execute(IEntity entity)
         {
-            var buffs = BuffManager.GetBuffs<IMechanicBuff>(entity,x=>x.MechanicsType == MechanicsType.Health);
-            
-            var enumerator = buffs.GetEnumerator();
+            BuffManager.GetBuffs(entity,x=>x.MechanicsType == MechanicsType.Health,_buffs);
 
-            if (!enumerator.MoveNext())
-            {
-                return;
-            }
-            
-            var buff = enumerator.Current;
+            var buff = _buffs[0];
 
             if (buff.Value <= 0)
             {
-                BuffManager.AddBuff(entity,new Death());
+                BuffManager.CreateAndAddBuff<Death>(entity,null);
             }
+        }
+
+        public bool Filter(IEntity entity, IBuffDataComponent buff)
+        {
+            return buff is Death;
+        }
+
+        public void Create(IEntity entity, IBuffDataComponent buff)
+        {
+            BuffManager.DestroyEntity(entity);
         }
     }
 }

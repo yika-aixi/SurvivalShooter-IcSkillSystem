@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
 using Scripts.Buff;
 
 namespace CompleteProject
@@ -20,6 +22,7 @@ namespace CompleteProject
         EnemyHealth enemyHealth;                    // Reference to this enemy's health.
         bool playerInRange;                         // Whether player is within the trigger collider and can be attacked.
         float timer;                                // Timer for counting up to the next attack.
+        private List<IMechanicBuff> _buffs;
 
 
         void Awake ()
@@ -29,6 +32,7 @@ namespace CompleteProject
             playerHealth = player.GetComponent <PlayerHealth> ();
             enemyHealth = GetComponent<EnemyHealth>();
             anim = GetComponent <Animator> ();
+            _buffs = new List<IMechanicBuff>();
         }
 
 
@@ -80,11 +84,11 @@ namespace CompleteProject
         {
             currentBetweenBulletsTime = timeBetweenAttacks;
             
-            currentBetweenBulletsTime -= enemyHealth.GetBuffSumValue<IMechanicBuff>(x => x.MechanicsType == MechanicsType.AttackSpeed);
+            currentBetweenBulletsTime -= enemyHealth.GetBuffSumValue(_buffs,x => x.MechanicsType == MechanicsType.AttackSpeed);
 
             currentdamagePerShot = attackDamage;
 
-            currentdamagePerShot += enemyHealth.GetBuffSumValue<IMechanicBuff>(x => x.MechanicsType == MechanicsType.Attack);
+            currentdamagePerShot += enemyHealth.GetBuffSumValue(_buffs,x => x.MechanicsType == MechanicsType.Attack);
         }
 
         void Attack ()
@@ -95,12 +99,11 @@ namespace CompleteProject
             // If the player has health to lose...
             if(playerHealth.currentHealth > 0)
             {
-                playerHealth.TakeDamage(new Damage()
-                {
-                    Value = attackDamage,
-                    Maker = enemyHealth,
-                    Type = DamageType
-                });
+                var damageBuff = GameManager.Manager.BuffManager.CreateBuff<Damage>();
+                damageBuff.Value = attackDamage;
+                damageBuff.Maker = enemyHealth;
+                damageBuff.Type = DamageType;
+                playerHealth.TakeDamage(damageBuff);
             }
         }
     }

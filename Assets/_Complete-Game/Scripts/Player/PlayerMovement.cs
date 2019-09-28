@@ -1,4 +1,5 @@
-﻿using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+﻿using System.Collections.Generic;
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using Scripts.Buff;
 using UnityEngine;
 using UnitySampleAssets.CrossPlatformInput;
@@ -19,6 +20,7 @@ namespace CompleteProject
 #if !MOBILE_INPUT
         int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
         float camRayLength = 100f;          // The length of the ray from the camera into the scene.
+        private List<IMechanicBuff> _buffs;
 #endif
 
         void Awake ()
@@ -32,6 +34,7 @@ namespace CompleteProject
             anim = GetComponent <Animator> ();
             playerRigidbody = GetComponent <Rigidbody> ();
             _player = GetComponent<PlayerHealth>();
+            _buffs = new List<IMechanicBuff>();
         }
 
 
@@ -70,7 +73,7 @@ namespace CompleteProject
         {
             CurrentSpeed = speed;
 
-            CurrentSpeed += _player.GetBuffSumValue<IMechanicBuff>(x => x.MechanicsType == MechanicsType.MoveSpeed);
+            CurrentSpeed += _player.GetBuffSumValue(_buffs,x => x.MechanicsType == MechanicsType.MoveSpeed);
         }
 
 

@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using Scripts.Buff;
+using UnityEngine.AI;
 
 namespace CompleteProject
 {
@@ -16,7 +19,8 @@ namespace CompleteProject
         public float CurrentMoveSpeed;
 
         private float _baseMoveSpeed;
-        
+        private List<IMechanicBuff> _buffs;
+
         void Awake ()
         {
             // Set up the references.
@@ -25,7 +29,7 @@ namespace CompleteProject
             enemyHealth = GetComponent <EnemyHealth> ();
             nav = GetComponent <UnityEngine.AI.NavMeshAgent> ();
             _enemy = GetComponent<EnemyHealth>();
-
+            _buffs = new List<IMechanicBuff>();
             _baseMoveSpeed = nav.speed;
         }
 
@@ -34,7 +38,7 @@ namespace CompleteProject
         {
             _updateCurrentMoveSpeed();
             // If the enemy and the player have health left...
-            if(enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
+            if(!GameManager.Manager.BuffManager.HasBuff<Death>(enemyHealth) && !GameManager.Manager.BuffManager.HasBuff<Death>(playerHealth))
             {
                 // ... set the destination of the nav mesh agent to the player.
                 nav.SetDestination (player.position);
@@ -51,7 +55,9 @@ namespace CompleteProject
         {
             CurrentMoveSpeed = _baseMoveSpeed;
 
-            CurrentMoveSpeed += _enemy.GetBuffSumValue<IMechanicBuff>(x => x.MechanicsType == MechanicsType.MoveSpeed);
+            CurrentMoveSpeed += _enemy.GetBuffSumValue(_buffs,x => x.MechanicsType == MechanicsType.MoveSpeed);
+            
+            nav.speed = CurrentMoveSpeed;
         }
     }
 }
