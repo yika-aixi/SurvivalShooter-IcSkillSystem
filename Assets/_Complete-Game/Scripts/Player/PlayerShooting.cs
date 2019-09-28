@@ -1,4 +1,5 @@
-﻿using Scripts.Buff;
+﻿using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using Scripts.Buff;
 using UnityEngine;
 using UnitySampleAssets.CrossPlatformInput;
 
@@ -9,7 +10,11 @@ namespace CompleteProject
         public PlayerHealth Player;
         public int DamageType = 1;
         public int damagePerShot = 20;                  // The damage inflicted by each bullet.
+        
+        [Header("Base Attack Speed")]
         public float timeBetweenBullets = 0.15f;        // The time between each shot.
+
+        public float currentBetweenBulletsTime;
         public float range = 100f;                      // The distance the gun can fire.
 
 
@@ -44,26 +49,46 @@ namespace CompleteProject
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
 
+            _updateCurrentBetweenBulletsTime();
+
 #if !MOBILE_INPUT
             // If the Fire1 button is being press and it's time to fire...
-			if(Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
+			if(Input.GetButton ("Fire1") && timer >= currentBetweenBulletsTime && Time.timeScale != 0)
             {
                 // ... shoot the gun.
                 Shoot ();
             }
 #else
             // If there is input on the shoot direction stick and it's time to fire...
-            if ((CrossPlatformInputManager.GetAxisRaw("Mouse X") != 0 || CrossPlatformInputManager.GetAxisRaw("Mouse Y") != 0) && timer >= timeBetweenBullets)
+            if ((CrossPlatformInputManager.GetAxisRaw("Mouse X") != 0 || CrossPlatformInputManager.GetAxisRaw("Mouse Y") != 0) && timer >= currentBetweenBulletsTime)
             {
                 // ... shoot the gun
                 Shoot();
             }
 #endif
             // If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
-            if(timer >= timeBetweenBullets * effectsDisplayTime)
+            if(timer >= currentBetweenBulletsTime * effectsDisplayTime)
             {
                 // ... disable the effects.
                 DisableEffects ();
+            }
+        }
+
+        private void _updateCurrentBetweenBulletsTime()
+        {
+            currentBetweenBulletsTime = timeBetweenBullets;
+
+            var attackSpeed = GameManager.Manager.BuffManager.GetBuffs<IMechanicBuff>(Player,
+                x => x.MechanicsType == MechanicsType.AttackSpeed);
+
+            if (attackSpeed == null)
+            {
+                return;
+            }
+            
+            foreach (var mechanicBuff in attackSpeed)
+            {
+                currentBetweenBulletsTime -= mechanicBuff.Value;
             }
         }
 

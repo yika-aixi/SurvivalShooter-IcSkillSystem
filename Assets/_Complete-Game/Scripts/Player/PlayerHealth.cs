@@ -13,7 +13,7 @@ namespace CompleteProject
     public class PlayerHealth : MonoBehaviour,IEntity
     {
         public int startingHealth = 100;                            // The amount of health the player starts the game with.
-
+        
         public int currentHealth
         {
             get => (int) _buff.Value;

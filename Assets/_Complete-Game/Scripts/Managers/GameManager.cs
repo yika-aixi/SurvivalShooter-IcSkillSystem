@@ -36,6 +36,7 @@ namespace CompleteProject
 
             BuffManager
                 .AddBuffSystem(new BuffTimeSystem(BuffManager))
+                .AddBuffSystem(new AttackSpeedPercentageSystem(BuffManager))
                 .AddBuffSystem(new DamageReduceFixedSystem(BuffManager))
                 .AddBuffSystem(new DamageReducePercentageSystem(BuffManager))
                 .AddBuffSystem(new LifestealFixedSystem(BuffManager))
