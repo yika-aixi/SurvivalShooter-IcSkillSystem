@@ -1,0 +1,3 @@
+[submodule "IcSkillSystem"]
+	path = Assets/IcSkillSystem
+	url = https://github.com/yika-aixi/IcSkillSystem.git
