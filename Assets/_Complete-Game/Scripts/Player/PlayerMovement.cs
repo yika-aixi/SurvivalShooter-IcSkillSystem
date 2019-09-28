@@ -1,16 +1,21 @@
-﻿using UnityEngine;
+﻿using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using Scripts.Buff;
+using UnityEngine;
 using UnitySampleAssets.CrossPlatformInput;
 
 namespace CompleteProject
 {
     public class PlayerMovement : MonoBehaviour
     {
+        [Header("Base Move Speed")]
         public float speed = 6f;            // The speed that the player will move at.
 
+        public float CurrentSpeed;      
 
         Vector3 movement;                   // The vector to store the direction of the player's movement.
         Animator anim;                      // Reference to the animator component.
         Rigidbody playerRigidbody;          // Reference to the player's rigidbody.
+        private PlayerHealth _player;
 #if !MOBILE_INPUT
         int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
         float camRayLength = 100f;          // The length of the ray from the camera into the scene.
@@ -26,6 +31,7 @@ namespace CompleteProject
             // Set up references.
             anim = GetComponent <Animator> ();
             playerRigidbody = GetComponent <Rigidbody> ();
+            _player = GetComponent<PlayerHealth>();
         }
 
 
@@ -50,12 +56,21 @@ namespace CompleteProject
         {
             // Set the movement vector based on the axis input.
             movement.Set (h, 0f, v);
+
+            _updateMoveSpeed();
             
             // Normalise the movement vector and make it proportional to the speed per second.
-            movement = movement.normalized * speed * Time.deltaTime;
+            movement = movement.normalized * CurrentSpeed * Time.deltaTime;
 
             // Move the player to it's current position plus the movement.
             playerRigidbody.MovePosition (transform.position + movement);
+        }
+
+        private void _updateMoveSpeed()
+        {
+            CurrentSpeed = speed;
+
+            CurrentSpeed += _player.GetBuffSumValue<IMechanicBuff>(x => x.MechanicsType == MechanicsType.MoveSpeed);
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using Scripts.Buff;
 
 namespace CompleteProject
@@ -9,6 +10,9 @@ namespace CompleteProject
         public float timeBetweenAttacks = 0.5f;     // The time in seconds between each attack.
         public int attackDamage = 10;               // The amount of health taken away per attack.
         public int DamageType = 1;
+        
+        public float currentdamagePerShot;
+        public float currentBetweenBulletsTime;
 
         Animator anim;                              // Reference to the animator component.
         GameObject player;                          // Reference to the player GameObject.
@@ -55,6 +59,8 @@ namespace CompleteProject
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
 
+            _updateAttackAndAttackSpeed();
+            
             // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
             if(timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
             {
@@ -69,7 +75,17 @@ namespace CompleteProject
                 anim.SetTrigger ("PlayerDead");
             }
         }
+        
+        private void _updateAttackAndAttackSpeed()
+        {
+            currentBetweenBulletsTime = timeBetweenAttacks;
+            
+            currentBetweenBulletsTime -= enemyHealth.GetBuffSumValue<IMechanicBuff>(x => x.MechanicsType == MechanicsType.AttackSpeed);
 
+            currentdamagePerShot = attackDamage;
+
+            currentdamagePerShot += enemyHealth.GetBuffSumValue<IMechanicBuff>(x => x.MechanicsType == MechanicsType.Attack);
+        }
 
         void Attack ()
         {

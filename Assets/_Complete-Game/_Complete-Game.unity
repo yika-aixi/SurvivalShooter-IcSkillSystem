@@ -1206,7 +1206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameObject: {fileID: 2496502760680070870, guid: 4a71e1317b465b4488a9dea85fc28a65,
     type: 3}
-  spawnTime: 0.2
+  spawnTime: 1
   Points:
   - {fileID: 513249276}
   - {fileID: 214616390}
@@ -3430,6 +3430,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 2023876516}
+    - target: {fileID: 11400000, guid: 4e5a0d387dc27394b81600988ad0216f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e5a0d387dc27394b81600988ad0216f, type: 3}
 --- !u!1 &1695883712

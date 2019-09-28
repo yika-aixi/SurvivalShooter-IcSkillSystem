@@ -1,4 +1,6 @@
 ﻿using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
+using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using Scripts.Buff;
 using UnityEngine;
 using UnitySampleAssets.CrossPlatformInput;
@@ -9,11 +11,12 @@ namespace CompleteProject
     {
         public PlayerHealth Player;
         public int DamageType = 1;
+        [Header("Base Attack Damage")]
         public int damagePerShot = 20;                  // The damage inflicted by each bullet.
-        
         [Header("Base Attack Speed")]
         public float timeBetweenBullets = 0.15f;        // The time between each shot.
 
+        public float currentdamagePerShot;
         public float currentBetweenBulletsTime;
         public float range = 100f;                      // The distance the gun can fire.
 
@@ -49,7 +52,7 @@ namespace CompleteProject
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
 
-            _updateCurrentBetweenBulletsTime();
+            _updateAttackAndAttackSpeed();
 
 #if !MOBILE_INPUT
             // If the Fire1 button is being press and it's time to fire...
@@ -74,24 +77,16 @@ namespace CompleteProject
             }
         }
 
-        private void _updateCurrentBetweenBulletsTime()
+        private void _updateAttackAndAttackSpeed()
         {
             currentBetweenBulletsTime = timeBetweenBullets;
-
-            var attackSpeed = GameManager.Manager.BuffManager.GetBuffs<IMechanicBuff>(Player,
-                x => x.MechanicsType == MechanicsType.AttackSpeed);
-
-            if (attackSpeed == null)
-            {
-                return;
-            }
             
-            foreach (var mechanicBuff in attackSpeed)
-            {
-                currentBetweenBulletsTime -= mechanicBuff.Value;
-            }
-        }
+            currentBetweenBulletsTime -= Player.GetBuffSumValue<IMechanicBuff>(x => x.MechanicsType == MechanicsType.AttackSpeed);
 
+            currentdamagePerShot = damagePerShot;
+
+            currentdamagePerShot += Player.GetBuffSumValue<IMechanicBuff>(x => x.MechanicsType == MechanicsType.Attack);
+        }
 
         public void DisableEffects ()
         {
@@ -138,7 +133,7 @@ namespace CompleteProject
                     // ... the enemy should take damage.
                     enemyHealth.TakeDamage (new Damage()
                     {
-                        Value = damagePerShot,
+                        Value = currentdamagePerShot,
                         Maker = Player,
                         Type = DamageType
                     }, shootHit.point);
