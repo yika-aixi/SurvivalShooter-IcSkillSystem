@@ -27,7 +27,7 @@ namespace Scripts.Buff
 
         public float Value
         {
-            get => _value / 1000f;
+            get => _value / 100f;
             set => _value = value;
         }
 
