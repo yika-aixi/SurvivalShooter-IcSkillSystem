@@ -1,13 +1,15 @@
 ﻿using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs.Unity;
+using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
+using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems.Interfaces;
 using Scripts.Buff;
 using UnityEngine;
 
 namespace CompleteProject
 {
-    public class EnemyHealth : MonoBehaviour,IEntity
+    public class EnemyHealth : MonoBehaviour,IEntity,IBuffCreateSystem
     {
         public int startingHealth = 100;            // The amount of health the enemy starts the game with.
         public int _cuu;
@@ -37,6 +39,8 @@ namespace CompleteProject
 
         void Awake ()
         {
+            GameManager.Manager.BuffManager.AddBuffSystem(this);
+            
             // Setting up the references.
             anim = GetComponent <Animator> ();
             enemyAudio = GetComponent <AudioSource> ();
@@ -80,8 +84,6 @@ namespace CompleteProject
             // If the enemy is dead...
             if (GameManager.Manager.BuffManager.HasBuff<Death>(this))
             {
-                Death ();
-
                 // ... no need to take damage so exit the function.
                 return;
             }
@@ -132,6 +134,16 @@ namespace CompleteProject
 
             // After 2 seconds destory the enemy.
             Destroy (gameObject, 2f);
+        }
+
+        public bool Filter(IEntity entity, IBuffDataComponent buff)
+        {
+            return buff is Death && (EnemyHealth) entity == this;
+        }
+
+        public void Create(IEntity entity, IBuffDataComponent buff)
+        {
+            Death();
         }
     }
 }
