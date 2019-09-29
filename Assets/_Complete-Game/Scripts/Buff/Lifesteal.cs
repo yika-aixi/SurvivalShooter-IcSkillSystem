@@ -6,22 +6,25 @@
 //Assembly-CSharp
 
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using UnityEngine;
 
 namespace Scripts.Buff
 {
     /// <summary>
     /// 固定吸血
     /// </summary>
-    public class LifestealFixed:IFixedLifesteal,IBuffTimeDataComponent
+    public class LifestealFixed:IFixedLifesteal,IBuffTimeDataComponent,IIcon
     {
         public float Value { get; set; }
         public float Duration { get; set; }
+        public Sprite Icon { get; set; }
+        public string IconName { get; set; }
     }
     
     /// <summary>
     /// 百分比吸血
     /// </summary>
-    public class LifestealPercentage:IPercentageLifesteal,IBuffTimeDataComponent
+    public class LifestealPercentage:IPercentageLifesteal,IBuffTimeDataComponent,IIcon
     {
         private float _value;
 
@@ -32,5 +35,7 @@ namespace Scripts.Buff
         }
 
         public float Duration { get; set; }
+        public Sprite Icon { get; set; }
+        public string IconName { get; set; }
     }
 }

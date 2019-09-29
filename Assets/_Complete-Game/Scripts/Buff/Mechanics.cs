@@ -6,6 +6,7 @@
 //Assembly-CSharp
 
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using UnityEngine;
 
 namespace Scripts.Buff
 {
@@ -20,10 +21,12 @@ namespace Scripts.Buff
     /// <summary>
     /// 持续时间的能力
     /// </summary>
-    public class MechanicsTime:IMechanicBuff,IBuffTimeDataComponent
+    public class MechanicsTime:IMechanicBuff,IBuffTimeDataComponent,IIcon
     {
         public float Value { get; set; }
         public MechanicsType MechanicsType { get; set;}
         public float Duration { get; set; }
+        public Sprite Icon { get; set; }
+        public string IconName { get; set; }
     }
 }
