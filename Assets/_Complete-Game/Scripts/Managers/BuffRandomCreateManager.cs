@@ -170,6 +170,7 @@ namespace CompleteProject
                     iconImag.Entity = entity;
                     iconImag.Buff = buff;
                     icon = iconImag;
+                    break;
                 }
             }
 
