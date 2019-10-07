@@ -127,6 +127,11 @@ namespace CompleteProject
                 {
                     if (buffDataComponent == buffIcon.Buff && buffIcon.Entity == entity)
                     {
+                        if (entity == null)
+                        {
+                            return;
+                        }
+
                         var x = i * buffIcon.Icon.rectTransform.sizeDelta.x;
                         var entityPos = ((Component) entity).transform.position;
                         
@@ -167,6 +172,7 @@ namespace CompleteProject
                 if (!iconImag.Icon.enabled)
                 {
                     iconImag.Icon.enabled = true;
+                    iconImag.Icon.sprite = iconBuff.Icon;
                     iconImag.Entity = entity;
                     iconImag.Buff = buff;
                     icon = iconImag;

@@ -138,12 +138,14 @@ namespace CompleteProject
 
         public bool Filter(IEntity entity, IBuffDataComponent buff)
         {
-            return buff is Death && (EnemyHealth) entity == this;
+            var eEntity = entity as EnemyHealth;
+            
+            return buff is Death && eEntity != null;
         }
 
         public void Create(IEntity entity, IBuffDataComponent buff)
         {
-            Death();
+            ((EnemyHealth)entity).Death();
         }
     }
 }

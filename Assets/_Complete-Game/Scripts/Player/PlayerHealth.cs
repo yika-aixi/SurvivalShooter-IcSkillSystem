@@ -56,7 +56,8 @@ namespace CompleteProject
 
             
             GameManager.Manager.BuffManager.AddBuff(this,_buff);
-            
+            healthSlider.maxValue = startingHealth;
+            healthSlider.value = startingHealth;
             GameManager.Manager.BuffManager.CreateAndAddBuff<Mechanics>(this, x =>
             {
                 x.Value = startingHealth;
@@ -141,13 +142,26 @@ namespace CompleteProject
 
         public bool Filter(IEntity entity, IBuffDataComponent buff)
         {
-            return buff is IDamageBuff || buff is ILifesteal;
+            switch (buff)
+            {
+                case IDamageBuff damage:
+                    if (entity as PlayerHealth != this)
+                    {
+                        if (damage.Maker != null && damage.Maker as PlayerHealth != this)
+                        {
+                            return false;
+                        }                        
+                    }
+                    break;
+            }
+
+            return true;
         }
 
         public void Destroy(IEntity entity, IBuffDataComponent buff)
         {
             // Set the health bar's value to the current health.
-            healthSlider.value = _buff.Value;
+            healthSlider.value = currentHealth;
         }
     }
 }

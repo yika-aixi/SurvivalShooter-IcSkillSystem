@@ -38,7 +38,8 @@ namespace CompleteProject
         {
             _updateCurrentMoveSpeed();
             // If the enemy and the player have health left...
-            if(!GameManager.Manager.BuffManager.HasBuff<Death>(enemyHealth) && !GameManager.Manager.BuffManager.HasBuff<Death>(playerHealth))
+            if(GameManager.Manager.BuffManager.HasBuff<Mechanics>(enemyHealth,x=>x.MechanicsType == MechanicsType.Health) && 
+               GameManager.Manager.BuffManager.HasBuff<Mechanics>(playerHealth,x=>x.MechanicsType == MechanicsType.Health))
             {
                 // ... set the destination of the nav mesh agent to the player.
                 nav.SetDestination (player.position);

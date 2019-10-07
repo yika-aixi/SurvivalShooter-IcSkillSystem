@@ -51,7 +51,7 @@ namespace Scripts.Buff.System
 
         public void Create(IEntity entity, IBuffDataComponent buff)
         {
-            BuffManager.DestroyEntity(entity);
+            BuffManager.DestroyEntityEx(entity);
         }
     }
 }
