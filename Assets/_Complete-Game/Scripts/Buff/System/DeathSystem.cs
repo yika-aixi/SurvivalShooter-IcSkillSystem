@@ -16,7 +16,7 @@ using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems.Interfaces;
 
 namespace Scripts.Buff.System
 {
-    public class DeathSystem:ABuffUpdateSystem,IBuffCreateSystem
+    public class DeathSystem:ABuffUpdateSystem<IBuffDataComponent>,IBuffCreateSystem<IBuffDataComponent>
     {
         private List<IMechanicBuff> _buffs;
 

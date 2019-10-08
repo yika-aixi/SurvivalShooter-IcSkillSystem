@@ -38,4 +38,37 @@ namespace Scripts.Buff
         public Sprite Icon { get; set; }
         public string IconName { get; set; }
     }
+    
+    
+    
+    /// <summary>
+    /// 固定吸血
+    /// </summary>
+    public struct LifestealFixedStruct:IFixedLifestealStruct,IBuffTimeDataComponent
+    {
+        public float Value { get; set; }
+        public float Duration { get; set; }
+        public Sprite Icon { get; set; }
+        public string IconName { get; set; }
+        public int ID { get; }
+    }
+    
+    /// <summary>
+    /// 百分比吸血
+    /// </summary>
+    public struct LifestealPercentageStruct:IPercentageLifestealStruct,IBuffTimeDataComponent
+    {
+        private float _value;
+
+        public float Value
+        {
+            get => _value / 100f;
+            set => _value = value;
+        }
+
+        public float Duration { get; set; }
+        public Sprite Icon { get; set; }
+        public string IconName { get; set; }
+        public int ID { get; }
+    }
 }

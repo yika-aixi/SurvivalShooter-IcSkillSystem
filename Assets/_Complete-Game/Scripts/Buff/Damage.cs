@@ -16,4 +16,12 @@ namespace Scripts.Buff
         public IEntity Maker { get; set; }
         public int Type { get; set; }
     }
+    
+    public struct DamageStruct:IDamageStructBuff
+    {
+        public float Value { get; set; }
+        public IEntity Maker { get; set; }
+        public int Type { get; set; }
+        public int ID { get; }
+    }
 }

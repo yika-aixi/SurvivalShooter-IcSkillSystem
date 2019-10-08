@@ -14,7 +14,7 @@ using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems;
 
 namespace Scripts.Buff.System
 {
-    public class AttackSpeedPercentageSystem:ABuffCreateSystem
+    public class AttackSpeedPercentageSystem:ABuffCreateSystem<IBuffDataComponent>
     {
         private List<IMechanicBuff> _buffs;
 

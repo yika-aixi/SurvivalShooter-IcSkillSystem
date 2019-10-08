@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 
 namespace CompleteProject
 {
-    public class BuffRandomCreateManager:MonoBehaviour,IBuffUpdateSystem,IBuffCreateSystem,IBuffDestroySystem
+    public class BuffRandomCreateManager:MonoBehaviour,IBuffUpdateSystem,IBuffCreateSystem<IBuffDataComponent>,IBuffDestroySystem<IBuffDataComponent>
     {
         class IconInfo
         {

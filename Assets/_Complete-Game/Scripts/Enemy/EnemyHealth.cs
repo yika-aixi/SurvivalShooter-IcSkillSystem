@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace CompleteProject
 {
-    public class EnemyHealth : MonoBehaviour,IEntity,IBuffCreateSystem
+    public class EnemyHealth : MonoBehaviour,IEntity,IBuffCreateSystem<IBuffDataComponent>
     {
         public int startingHealth = 100;            // The amount of health the enemy starts the game with.
         public int _cuu;

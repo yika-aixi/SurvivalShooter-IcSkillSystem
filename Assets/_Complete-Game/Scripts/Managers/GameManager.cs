@@ -52,7 +52,7 @@ namespace CompleteProject
             blackboard.Set(SkillManagerKey,SkillManager);
 
             BuffManager
-                .AddBuffSystem(new BuffTimeSystem(BuffManager))
+                .AddBuffSystem(new BuffTimeSystem<IBuffDataComponent>(BuffManager))
                 .AddBuffSystem(new AttackSpeedPercentageSystem(BuffManager))
                 .AddBuffSystem(new DamageReduceFixedSystem(BuffManager))
                 .AddBuffSystem(new DamageReducePercentageSystem(BuffManager))

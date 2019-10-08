@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 namespace CompleteProject
 {
-    public class PlayerHealth : MonoBehaviour,IEntity,IBuffDestroySystem
+    public class PlayerHealth : MonoBehaviour,IEntity,IBuffDestroySystem<IBuffDataComponent>
     {
         public int startingHealth = 100;                            // The amount of health the player starts the game with.
         

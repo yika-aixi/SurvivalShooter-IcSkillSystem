@@ -29,4 +29,17 @@ namespace Scripts.Buff
         public Sprite Icon { get; set; }
         public string IconName { get; set; }
     }
+    
+    /// <summary>
+    /// 持续时间的能力
+    /// </summary>
+    public struct MechanicsTimeStruct:IMechanicBuffStruct,IBuffTimeDataComponent
+    {
+        public float Value { get; set; }
+        public MechanicsType MechanicsType { get; set;}
+        public float Duration { get; set; }
+        public Sprite Icon { get; set; }
+        public string IconName { get; set; }
+        public int ID { get; }
+    }
 }
