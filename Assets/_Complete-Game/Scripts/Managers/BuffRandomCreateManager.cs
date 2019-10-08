@@ -198,7 +198,7 @@ namespace CompleteProject
     
     public static class BuffFactory
     {
-        public static IBuffDataComponent GeBuff(IBuffManager manager,int id,out Color color)
+        public static IBuffDataComponent GeBuff(IBuffManager<IBuffDataComponent> manager,int id,out Color color)
         {
             color = Color.cyan;
             switch (id)

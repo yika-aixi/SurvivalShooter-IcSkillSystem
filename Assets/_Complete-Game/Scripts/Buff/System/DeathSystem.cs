@@ -20,7 +20,7 @@ namespace Scripts.Buff.System
     {
         private List<IMechanicBuff> _buffs;
 
-        public DeathSystem(IBuffManager buffManager) : base(buffManager)
+        public DeathSystem(IBuffManager<IBuffDataComponent> buffManager) : base(buffManager)
         {
             _buffs = new List<IMechanicBuff>();
         }

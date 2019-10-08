@@ -18,7 +18,7 @@ namespace Scripts.Buff.System
     {
         private List<IMechanicBuff> _buffs;
 
-        public AttackSpeedPercentageSystem(IBuffManager buffManager) : base(buffManager)
+        public AttackSpeedPercentageSystem(IBuffManager<IBuffDataComponent> buffManager) : base(buffManager)
         {
             _buffs = new List<IMechanicBuff>();
         }

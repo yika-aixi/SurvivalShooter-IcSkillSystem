@@ -15,7 +15,6 @@ namespace Scripts.Buff
     public class BuffComponent:MonoBehaviour
     {
         public IBuffDataComponent Buff;
-        
         private void OnTriggerEnter(Collider other)
         {
             if (Buff == null)

@@ -9,6 +9,7 @@ using System;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs.Systems;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs;
+using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Skills.Manager;
 using NPBehave;
 using Scripts.Buff.System;
@@ -22,7 +23,7 @@ namespace CompleteProject
     {
         public static GameManager Manager;
 
-        public IBuffManager BuffManager;
+        public IBuffManager<IBuffDataComponent> BuffManager;
 
         public ISkillManager SkillManager;
 
