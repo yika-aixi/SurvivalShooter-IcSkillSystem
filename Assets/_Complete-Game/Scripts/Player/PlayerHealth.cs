@@ -12,18 +12,18 @@ using UnityEngine.SceneManagement;
 
 namespace CompleteProject
 {
-    public class PlayerHealth : MonoBehaviour,IEntity,IBuffDestroySystem<IBuffDataComponent>
+    public class PlayerHealth : MonoBehaviour,IBuffDestroySystem<IcSkSEntity,Damage>
     {
         public int startingHealth = 100;                            // The amount of health the player starts the game with.
         
         [field:SerializeField]
         public int currentHealth
         {
-            get => (int) GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,_healthBuffIndex).Value;
+            get => (int) GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,HealthBuffIndex).Value;
             set =>  GameManager.Manager.BuffManager.SetBuffData(Entity,new Mechanics()
             {
-                BaseValue = Mathf.Clamp(value,0,GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,_maxHealthBuffIndex).Value)
-            }, _healthBuffIndex);
+                Value = Mathf.Clamp(value,0,GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,MaxHealthBuffIndex).Value)
+            }, HealthBuffIndex);
         }
 
         public Slider healthSlider;                                 // Reference to the UI's health bar.
@@ -38,15 +38,15 @@ namespace CompleteProject
         PlayerShooting playerShooting;                              // Reference to the PlayerShooting script.
         bool damaged;                                               // True when the player gets damaged.
 
-        private IcSkSEntity Entity { get; private set; }
+        public IcSkSEntity Entity { get; private set; }
 
         #region Buff
 
-        private int _healthBuffIndex = 0;
+        public int HealthBuffIndex { get; } = 0;
         
-        private int _maxHealthBuffIndex = 1;
+        public int MaxHealthBuffIndex { get; } = 1;
 
-        private int _moveSpeedBuffIndex = 2;
+        public int MoveSpeedBuffIndex { get; } = 2;
 
         #endregion
 
@@ -58,35 +58,35 @@ namespace CompleteProject
             playerMovement = GetComponent <PlayerMovement> ();
             playerShooting = GetComponentInChildren <PlayerShooting> ();
 
-            Entity = GameManager.Manager.EntityManager.CreateEntityAndBind(gameObject);
+            Entity = GameManager.Manager.EntityManager.CreateEntityAndBind(gameObject,gameObject.GetInstanceID());
             
             GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
             {
-                BaseValue = startingHealth,
+                Value = startingHealth,
                 MechanicsType = MechanicsType.Health
             });
             
             GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
             {
-                BaseValue = startingHealth,
+                Value = startingHealth,
                 MechanicsType = MechanicsType.MoveSpeed
             });
 
             GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
             {
-                BaseValue = playerMovement.speed,
+                Value = playerMovement.speed,
                 MechanicsType = MechanicsType.Health
             });
 
             healthSlider.maxValue = startingHealth;
             healthSlider.value = startingHealth;
             
-            GameManager.Manager.BuffManager.AddBuffSystem(this);
+            GameManager.Manager.BuffManager.AddBuffSystem<Damage>(this);
 
 #if UNITY_EDITOR
             var link = gameObject.AddComponent < BuffEntityLinkComponent>();
             
-//            link.Init(GameManager.Manager.BuffManager,this);
+            link.Init(GameManager.Manager.EntityManager,GameManager.Manager.BuffManager,Entity);
 #endif
         }
 
@@ -111,7 +111,7 @@ namespace CompleteProject
         }
 
 
-        public void TakeDamage (IDamageBuff damage)
+        public void TakeDamage (Damage damage)
         {
             // Set the damaged flag so the screen will flash.
             damaged = true;
@@ -119,13 +119,13 @@ namespace CompleteProject
 //            // Reduce the current health by the damage amount.
 //            currentHealth -= amount;
 
-            GameManager.Manager.BuffManager.AddBuff(this,damage);
+            GameManager.Manager.BuffManager.AddBuff(Entity,damage);
             
             // Play the hurt sound effect.
             playerAudio.Play ();
 
             // If the player has lost all it's health and the death flag hasn't been set yet...
-            if(currentHealth <= 0 || GameManager.Manager.BuffManager.HasBuff<Death>(this))
+            if(GameManager.Manager.BuffManager.HasBuff(Entity,new DeathStruct()))
             {
                 // ... it should die.
                 Death ();
@@ -157,28 +157,14 @@ namespace CompleteProject
             SceneManager.LoadScene (0);
         }
 
-        public bool Filter(IEntity entity, IBuffDataComponent buff)
+        public void Destroy(IcSkSEntity entity, int index)
         {
-            switch (buff)
+            var damage = GameManager.Manager.BuffManager.GetBuffData<Damage>(entity, index);
+
+            if (damage.Entity != Entity)
             {
-                case IDamageBuff damage:
-                    if (entity as PlayerHealth != this)
-                    {
-                        if (damage.Maker != null && damage.Maker as PlayerHealth != this)
-                        {
-                            return false;
-                        }                        
-                    }
-                    break;
+                healthSlider.value = currentHealth;
             }
-
-            return true;
-        }
-
-        public void Destroy(IEntity entity, IBuffDataComponent buff)
-        {
-            // Set the health bar's value to the current health.
-            healthSlider.value = currentHealth;
         }
     }
 }

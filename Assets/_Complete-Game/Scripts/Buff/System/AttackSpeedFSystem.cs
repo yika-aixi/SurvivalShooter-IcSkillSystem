@@ -29,17 +29,17 @@ namespace Scripts.Buff.System
             if (buffData.MechanicsType == MechanicsType.AttackSpeed)
             {
                 //只已第一条攻速属性buff为准
-                for (var i = 0; i < mechanics.Count; i++)
-                {
-                    var mechanise = mechanics[i];
-                    if (mechanise.MechanicsType == MechanicsType.AttackSpeed)
-                    {
-                        mechanise.AddValue += mechanise.BaseValue * buffData.Value;
-                        _buffManager.SetBuffData(entity,mechanise,i);
-                        
-                        break;
-                    }
-                }
+//                for (var i = 0; i < mechanics.Count; i++)
+//                {
+//                    var mechanise = mechanics[i];
+//                    if (mechanise.MechanicsType == MechanicsType.AttackSpeed)
+//                    {
+//                        mechanise.AddValue += mechanise.BaseValue * buffData.Value;
+//                        _buffManager.SetBuffData(entity,mechanise,i);
+//                        
+//                        break;
+//                    }
+//                }
 
 //                if (mechanics != null)
 //                {
@@ -65,16 +65,16 @@ namespace Scripts.Buff.System
             if (buffData.MechanicsType == MechanicsType.AttackSpeed)
             {
                 //只已第一条攻速属性buff为准
-                for (var i = 0; i < mechanics.Count; i++)
-                {
-                    var mechanise = mechanics[i];
-                    if (mechanise.MechanicsType == MechanicsType.AttackSpeed)
-                    {
-                        mechanise.AddValue -= mechanise.BaseValue * buffData.Value;
-                        _buffManager.SetBuffData(entity,mechanise,i);
-                        break;
-                    }
-                }
+//                for (var i = 0; i < mechanics.Count; i++)
+//                {
+//                    var mechanise = mechanics[i];
+//                    if (mechanise.MechanicsType == MechanicsType.AttackSpeed)
+//                    {
+//                        mechanise.AddValue -= mechanise.BaseValue * buffData.Value;
+//                        _buffManager.SetBuffData(entity,mechanise,i);
+//                        break;
+//                    }
+//                }
 
 //                if (mechanics != null)
 //                {

@@ -82,12 +82,25 @@ namespace CompleteProject
         private void _updateAttackAndAttackSpeed()
         {
             currentBetweenBulletsTime = timeBetweenAttacks;
-            
-            currentBetweenBulletsTime -= GameManager.Manager.BuffManager.GetBuffData<>().enemyHealth.GetBuffSumValue(_buffs,x => x.MechanicsType == MechanicsType.AttackSpeed);
-
             currentdamagePerShot = attackDamage;
 
-            currentdamagePerShot += enemyHealth.GetBuffSumValue(_buffs,x => x.MechanicsType == MechanicsType.Attack);
+            var buffs = GameManager.Manager.BuffManager.GetBuffs<Mechanics>(enemyHealth.Entity);
+
+            for (var i = 0; i < buffs.Count; i++)
+            {
+                var buff = buffs[i];
+
+                if (buff.MechanicsType == MechanicsType.AttackSpeed)
+                {
+                    currentBetweenBulletsTime -= buff.Value;
+                }
+
+                if (buff.MechanicsType == MechanicsType.Attack)
+                {
+                    currentdamagePerShot += buff.Value;
+                }
+
+            }
         }
 
         void Attack ()
@@ -98,9 +111,9 @@ namespace CompleteProject
             // If the player has health to lose...
             if(playerHealth.currentHealth > 0)
             {
-                var damageBuff = GameManager.Manager.BuffManager.CreateBuff<Damage>();
+                var damageBuff = new Damage();
                 damageBuff.Value = attackDamage;
-                damageBuff.Maker = enemyHealth;
+                damageBuff.Entity = enemyHealth.Entity;
                 damageBuff.Type = DamageType;
                 playerHealth.TakeDamage(damageBuff);
             }

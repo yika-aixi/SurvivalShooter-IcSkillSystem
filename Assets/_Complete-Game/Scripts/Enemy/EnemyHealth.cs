@@ -9,15 +9,20 @@ using UnityEngine;
 
 namespace CompleteProject
 {
-    public class EnemyHealth : MonoBehaviour,IEntity,IBuffCreateSystem<IBuffDataComponent>
+    public class EnemyHealth : MonoBehaviour,IBuffCreateSystem<IcSkSEntity,DeathStruct>
     {
         public int startingHealth = 100;            // The amount of health the enemy starts the game with.
+
+        public float MoveSpeed = 3;
         public int _cuu;
         [field:SerializeField]
         public int currentHealth
         {
-            get => (int) _buff.Value;
-            set => _buff.Value = Mathf.Clamp(value,0,startingHealth);
+            get => (int) GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,HealthBuffIndex).Value;
+            set =>  GameManager.Manager.BuffManager.SetBuffData(Entity,new Mechanics()
+            {
+                Value = Mathf.Clamp(value,0,GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,MaxHealthBuffIndex).Value)
+            }, HealthBuffIndex);
         }
         // The current health the enemy has.
         public float sinkSpeed = 2.5f;              // The speed at which the enemy sinks through the floor when dead.
@@ -33,29 +38,45 @@ namespace CompleteProject
 
         #region Buff
 
-        private IMechanicBuff _buff;
+        public IcSkSEntity Entity { get; private set; }
 
+        public int HealthBuffIndex { get; } = 0;
+        
+        public int MaxHealthBuffIndex { get; } = 1;
+
+        public int MoveSpeedBuffIndex { get; } = 2;
+        
         #endregion
 
         void Awake ()
         {
-            GameManager.Manager.BuffManager.AddBuffSystem(this);
+            GameManager.Manager.BuffManager.AddBuffSystem<DeathStruct>(this);
+
+            Entity = GameManager.Manager.EntityManager.CreateEntityAndBind(gameObject, gameObject.GetInstanceID());
+            
+            GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
+            {
+                Value = startingHealth,
+                MechanicsType = MechanicsType.Health
+            });
+            
+            GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
+            {
+                Value = startingHealth,
+                MechanicsType = MechanicsType.MoveSpeed
+            });
+
+            GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
+            {
+                Value = MoveSpeed,
+                MechanicsType = MechanicsType.Health
+            });
             
             // Setting up the references.
             anim = GetComponent <Animator> ();
             enemyAudio = GetComponent <AudioSource> ();
             hitParticles = GetComponentInChildren <ParticleSystem> ();
             capsuleCollider = GetComponent <CapsuleCollider> ();
-            _buff = GameManager.Manager.BuffManager.CreateBuff<Mechanics>();
-            _buff.MechanicsType = MechanicsType.Health;
-            _buff.Value = startingHealth;
-            
-            GameManager.Manager.BuffManager.AddBuff(this,_buff);
-            GameManager.Manager.BuffManager.CreateAndAddBuff<Mechanics>(this, x =>
-                {
-                    x.MechanicsType = MechanicsType.Health;
-                    x.Value = startingHealth;
-                });
             
 //            // Setting the current health when the enemy first spawns.
 //            currentHealth = startingHealth;
@@ -63,7 +84,7 @@ namespace CompleteProject
 #if UNITY_EDITOR
             var link = gameObject.AddComponent <BuffEntityLinkComponent>();
             
-            link.Init(GameManager.Manager.BuffManager,this);
+            link.Init(GameManager.Manager.EntityManager,GameManager.Manager.BuffManager,Entity);
 #endif
         }
 
@@ -79,10 +100,10 @@ namespace CompleteProject
         }
 
 
-        public void TakeDamage(IDamageBuff damage, Vector3 hitPoint)
+        public void TakeDamage(Damage damage, Vector3 hitPoint)
         {
             // If the enemy is dead...
-            if (GameManager.Manager.BuffManager.HasBuff<Death>(this))
+            if (GameManager.Manager.BuffManager.HasBuff(Entity,new DeathStruct()))
             {
                 // ... no need to take damage so exit the function.
                 return;
@@ -91,7 +112,7 @@ namespace CompleteProject
             // Play the hurt sound effect.
             enemyAudio.Play ();
             
-            GameManager.Manager.BuffManager.AddBuff(this,damage);
+            GameManager.Manager.BuffManager.AddBuff(Entity,damage);
 
 //            // Reduce the current health by the amount of damage sustained.
 //            currentHealth -= amount;
@@ -136,16 +157,19 @@ namespace CompleteProject
             Destroy (gameObject, 2f);
         }
 
-        public bool Filter(IEntity entity, IBuffDataComponent buff)
+        public void Create(IcSkSEntity entity, int index)
         {
-            var eEntity = entity as EnemyHealth;
-            
-            return buff is Death && eEntity != null;
-        }
+            var go = GameManager.Manager.EntityManager.FindBindGo(entity);
 
-        public void Create(IEntity entity, IBuffDataComponent buff)
-        {
-            ((EnemyHealth)entity).Death();
+            if (go)
+            {
+                var health = go.GetComponent<EnemyHealth>();
+
+                if (health != null)
+                {
+                    health.Death();
+                }
+            }
         }
     }
 }

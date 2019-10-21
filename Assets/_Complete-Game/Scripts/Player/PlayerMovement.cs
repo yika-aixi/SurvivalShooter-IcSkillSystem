@@ -71,9 +71,7 @@ namespace CompleteProject
 
         private void _updateMoveSpeed()
         {
-            CurrentSpeed = speed;
-
-            CurrentSpeed += _player.GetBuffSumValue(_buffs,x => x.MechanicsType == MechanicsType.MoveSpeed);
+            CurrentSpeed = GameManager.Manager.BuffManager.GetBuffData<Mechanics>(_player.Entity,_player.MoveSpeedBuffIndex).Value;
         }
 
 

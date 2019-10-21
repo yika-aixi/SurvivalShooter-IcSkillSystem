@@ -30,7 +30,7 @@ namespace Scripts.Buff.System
                 {
                     if (mechanicse.MechanicsType == MechanicsType.Health)
                     {
-                        if (mechanicse.Value <= 0)
+                        if (mechanicse.Value <= 0 && !_buffManager.HasBuff(entity,new DeathStruct()))
                         {
                             _buffManager.AddBuff(entity,new DeathStruct());
                         }

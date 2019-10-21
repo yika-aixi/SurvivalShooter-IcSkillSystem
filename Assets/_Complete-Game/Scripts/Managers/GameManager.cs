@@ -5,12 +5,15 @@
 //2019年09月28日-14:41
 //Assembly-CSharp
 
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs.Systems;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using CabinIcarus.IcSkillSystem.Runtime.Skills.Manager;
 using NPBehave;
+using Scripts.Buff;
 using Scripts.Buff.System;
 using SkillSystem.SkillSystem.Scripts.Expansion.Runtime.Builtin.Entitys;
 using UnityEngine;
@@ -46,19 +49,35 @@ namespace CompleteProject
 
             BuffManager = new BuffManager_Struct();
 
+            EntityManager = new IcSkSEntityManager(BuffManager);
+
             blackboard.Set(BuffManagerKey,BuffManager);
             
             blackboard.Set(SkillManagerKey,SkillManager);
 
-//            BuffManager
-//                .AddBuffSystem(new BuffTimeSystem<IBuffDataComponent>(BuffManager))
-//                .AddBuffSystem(new AttackSpeedPercentageSystem(BuffManager))
-//                .AddBuffSystem(new DamageReduceFixedSystem(BuffManager))
-//                .AddBuffSystem(new DamageReducePercentageSystem(BuffManager))
-//                .AddBuffSystem(new LifestealFixedSystem(BuffManager))
-//                .AddBuffSystem(new LifestealPercentageSystem(BuffManager))
-//                .AddBuffSystem(new DamageSystem(BuffManager))
-//                .AddBuffSystem(new DeathSystem(BuffManager));
+            BuffManager
+                //时间减少
+                .AddBuffSystem<LifestealFixed>(new BuffTimeSystem<LifestealFixed>(BuffManager))
+                .AddBuffSystem<LifestealPercentage>(new BuffTimeSystem<LifestealPercentage>(BuffManager))
+                .AddBuffSystem<DamageReduceFixed>(new BuffTimeSystem<DamageReduceFixed>(BuffManager))
+                .AddBuffSystem<DamageReducePercentage>(new BuffTimeSystem<DamageReducePercentage>(BuffManager))
+                .AddBuffSystem<MechanicsTime>(new BuffTimeSystem<MechanicsTime>(BuffManager))
+                .AddBuffSystem<MechanicsTimeP>(new BuffTimeSystem<MechanicsTimeP>(BuffManager))
+                
+                //攻击速度计算
+                .AddBuffSystem<MechanicsTimeP>(new AttackSpeedPercentageSystem(BuffManager))
+                //固定伤害减少
+                .AddBuffSystem<Damage>(new DamageReduceFixedSystem<DamageReduceFixed,Damage>(BuffManager))
+                //百分比伤害减少
+                .AddBuffSystem<Damage>(new DamageReducePercentageSystem<DamageReducePercentage,Damage>(BuffManager))
+                //固定吸血
+                .AddBuffSystem<Damage>(new LifestealFixedSystem<Mechanics,LifestealFixed,Damage>(BuffManager))
+                //百分比吸血
+                .AddBuffSystem<Damage>(new LifestealPercentageSystem<Mechanics,LifestealPercentage,Damage>(BuffManager))
+                //伤害处理
+                .AddBuffSystem<Damage>(new DamageSystem<Mechanics,Damage>(BuffManager))
+                //死亡
+                .AddBuffSystem<DeathStruct>(new DeathSystem(BuffManager));
         }
 
         private void Update()

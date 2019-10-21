@@ -14,11 +14,7 @@ namespace CompleteProject
         PlayerHealth playerHealth;      // Reference to the player's health.
         EnemyHealth enemyHealth;        // Reference to this enemy's health.
         UnityEngine.AI.NavMeshAgent nav;               // Reference to the nav mesh agent.
-        private EnemyHealth _enemy;
 
-        public float CurrentMoveSpeed;
-
-        private float _baseMoveSpeed;
         private List<IMechanicBuff> _buffs;
 
         void Awake ()
@@ -28,9 +24,7 @@ namespace CompleteProject
             playerHealth = player.GetComponent <PlayerHealth> ();
             enemyHealth = GetComponent <EnemyHealth> ();
             nav = GetComponent <UnityEngine.AI.NavMeshAgent> ();
-            _enemy = GetComponent<EnemyHealth>();
             _buffs = new List<IMechanicBuff>();
-            _baseMoveSpeed = nav.speed;
         }
 
 
@@ -38,8 +32,8 @@ namespace CompleteProject
         {
             _updateCurrentMoveSpeed();
             // If the enemy and the player have health left...
-            if(GameManager.Manager.BuffManager.HasBuff<Mechanics>(enemyHealth,x=>x.MechanicsType == MechanicsType.Health) && 
-               GameManager.Manager.BuffManager.HasBuff<Mechanics>(playerHealth,x=>x.MechanicsType == MechanicsType.Health))
+            if( enemyHealth.currentHealth > 0 && 
+                playerHealth.currentHealth > 0)
             {
                 // ... set the destination of the nav mesh agent to the player.
                 nav.SetDestination (player.position);
@@ -54,11 +48,7 @@ namespace CompleteProject
 
         private void _updateCurrentMoveSpeed()
         {
-            CurrentMoveSpeed = _baseMoveSpeed;
-
-            CurrentMoveSpeed += _enemy.GetBuffSumValue(_buffs,x => x.MechanicsType == MechanicsType.MoveSpeed);
-            
-            nav.speed = CurrentMoveSpeed;
+            nav.speed = GameManager.Manager.BuffManager.GetBuffData<Mechanics>(enemyHealth.Entity,enemyHealth.MoveSpeedBuffIndex).Value;
         }
     }
 }

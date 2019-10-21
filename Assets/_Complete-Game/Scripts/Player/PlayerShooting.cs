@@ -86,12 +86,25 @@ namespace CompleteProject
         private void _updateAttackAndAttackSpeed()
         {
             currentBetweenBulletsTime = timeBetweenBullets;
-            
-            currentBetweenBulletsTime -= Player.GetBuffSumValue<IMechanicBuff>(_buff,x => x.MechanicsType == MechanicsType.AttackSpeed);
-
             currentdamagePerShot = damagePerShot;
+            
+            var buffs = GameManager.Manager.BuffManager.GetBuffs<Mechanics>(Player.Entity);
 
-            currentdamagePerShot += Player.GetBuffSumValue<IMechanicBuff>(_buffs,x => x.MechanicsType == MechanicsType.Attack);
+            for (var i = 0; i < buffs.Count; i++)
+            {
+                var buff = buffs[i];
+
+                if (buff.MechanicsType == MechanicsType.AttackSpeed)
+                {
+                    currentBetweenBulletsTime -= buff.Value;
+                }
+
+                if (buff.MechanicsType == MechanicsType.Attack)
+                {
+                    currentdamagePerShot += buff.Value;
+                }
+
+            }
         }
 
         public void DisableEffects ()
@@ -136,9 +149,9 @@ namespace CompleteProject
                 // If the EnemyHealth component exist...
                 if(enemyHealth != null)
                 {
-                    var damage = GameManager.Manager.BuffManager.CreateBuff<Damage>();
+                    var damage = new Damage();
                     damage.Value = currentdamagePerShot;
-                    damage.Maker = Player;
+                    damage.Entity = Player.Entity;
                     damage.Type = DamageType;
                     // ... the enemy should take damage.
                     enemyHealth.TakeDamage (damage, shootHit.point);
