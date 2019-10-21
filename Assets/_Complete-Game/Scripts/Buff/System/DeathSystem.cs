@@ -16,42 +16,32 @@ using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems.Interfaces;
 
 namespace Scripts.Buff.System
 {
-    public class DeathSystem:ABuffUpdateSystem<IBuffDataComponent>,IBuffCreateSystem<IBuffDataComponent>
+    public class DeathSystem:IBuffUpdateSystem
     {
-        private List<IMechanicBuff> _buffs;
+        private readonly IStructBuffManager<IcSkSEntity> _buffManager;
 
-        public DeathSystem(IBuffManager<IBuffDataComponent> buffManager) : base(buffManager)
+        public void Execute()
         {
-            _buffs = new List<IMechanicBuff>();
-        }
-
-
-        public override bool Filter(IEntity entity)
-        {
-            return BuffManager.HasBuff<IMechanicBuff>(entity,x=>x.MechanicsType == MechanicsType.Health) &&
-                   !BuffManager.HasBuff<Death>(entity);
-        }
-
-        public override void Execute(IEntity entity)
-        {
-            BuffManager.GetBuffs(entity,x=>x.MechanicsType == MechanicsType.Health,_buffs);
-
-            var buff = _buffs[0];
-
-            if (buff.Value <= 0)
+            foreach (var entity in _buffManager.Entitys)
             {
-                BuffManager.CreateAndAddBuff<Death>(entity,null);
+                var buffs = _buffManager.GetBuffs<Mechanics>(entity);
+
+                foreach (var mechanicse in buffs)
+                {
+                    if (mechanicse.MechanicsType == MechanicsType.Health)
+                    {
+                        if (mechanicse.Value <= 0)
+                        {
+                            _buffManager.AddBuff(entity,new DeathStruct());
+                        }
+                    }           
+                }
             }
         }
 
-        public bool Filter(IEntity entity, IBuffDataComponent buff)
+        public DeathSystem(IStructBuffManager<IcSkSEntity> buffManager)
         {
-            return buff is Death;
-        }
-
-        public void Create(IEntity entity, IBuffDataComponent buff)
-        {
-            BuffManager.DestroyEntityEx(entity);
+            this._buffManager = buffManager;
         }
     }
 }

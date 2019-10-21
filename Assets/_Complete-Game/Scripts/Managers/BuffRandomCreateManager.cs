@@ -20,11 +20,11 @@ using Random = UnityEngine.Random;
 
 namespace CompleteProject
 {
-    public class BuffRandomCreateManager:MonoBehaviour,IBuffUpdateSystem,IBuffCreateSystem<IBuffDataComponent>,IBuffDestroySystem<IBuffDataComponent>
+    public class BuffRandomCreateManager:MonoBehaviour,IBuffUpdateSystem,IBuffCreateSystem<IcSkSEntity>,IBuffDestroySystem<IcSkSEntity>
     {
         class IconInfo
         {
-            public IEntity Entity;
+            public IcSkSEntity Entity;
             public IBuffDataComponent Buff;
             public Image Icon;
         }
@@ -193,6 +193,21 @@ namespace CompleteProject
                 };
                 _iconImags.Add(icon);
             }
+        }
+
+        public void Execute()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Create(IcSkSEntity entity, int index)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Destroy(IcSkSEntity entity, int index)
+        {
+            throw new System.NotImplementedException();
         }
     }
     

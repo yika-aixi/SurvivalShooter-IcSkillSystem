@@ -19,8 +19,11 @@ namespace CompleteProject
         [field:SerializeField]
         public int currentHealth
         {
-            get => (int) _buff.Value;
-            set => _buff.Value = Mathf.Clamp(value,0,startingHealth);
+            get => (int) GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,_healthBuffIndex).Value;
+            set =>  GameManager.Manager.BuffManager.SetBuffData(Entity,new Mechanics()
+            {
+                BaseValue = Mathf.Clamp(value,0,GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,_maxHealthBuffIndex).Value)
+            }, _healthBuffIndex);
         }
 
         public Slider healthSlider;                                 // Reference to the UI's health bar.
@@ -35,10 +38,15 @@ namespace CompleteProject
         PlayerShooting playerShooting;                              // Reference to the PlayerShooting script.
         bool damaged;                                               // True when the player gets damaged.
 
+        private IcSkSEntity Entity { get; private set; }
 
         #region Buff
 
-        IMechanicBuff _buff;
+        private int _healthBuffIndex = 0;
+        
+        private int _maxHealthBuffIndex = 1;
+
+        private int _moveSpeedBuffIndex = 2;
 
         #endregion
 
@@ -50,26 +58,35 @@ namespace CompleteProject
             playerMovement = GetComponent <PlayerMovement> ();
             playerShooting = GetComponentInChildren <PlayerShooting> ();
 
-            _buff = GameManager.Manager.BuffManager.CreateBuff<Mechanics>();
-            _buff.MechanicsType = MechanicsType.Health;
-            _buff.Value = startingHealth;
-
+            Entity = GameManager.Manager.EntityManager.CreateEntityAndBind(gameObject);
             
-            GameManager.Manager.BuffManager.AddBuff(this,_buff);
+            GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
+            {
+                BaseValue = startingHealth,
+                MechanicsType = MechanicsType.Health
+            });
+            
+            GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
+            {
+                BaseValue = startingHealth,
+                MechanicsType = MechanicsType.MoveSpeed
+            });
+
+            GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
+            {
+                BaseValue = playerMovement.speed,
+                MechanicsType = MechanicsType.Health
+            });
+
             healthSlider.maxValue = startingHealth;
             healthSlider.value = startingHealth;
-            GameManager.Manager.BuffManager.CreateAndAddBuff<Mechanics>(this, x =>
-            {
-                x.Value = startingHealth;
-                x.MechanicsType = MechanicsType.Health;
-            });
             
             GameManager.Manager.BuffManager.AddBuffSystem(this);
 
 #if UNITY_EDITOR
             var link = gameObject.AddComponent < BuffEntityLinkComponent>();
             
-            link.Init(GameManager.Manager.BuffManager,this);
+//            link.Init(GameManager.Manager.BuffManager,this);
 #endif
         }
 

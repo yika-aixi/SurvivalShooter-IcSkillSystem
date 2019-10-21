@@ -23,8 +23,7 @@ namespace CompleteProject
         bool playerInRange;                         // Whether player is within the trigger collider and can be attacked.
         float timer;                                // Timer for counting up to the next attack.
         private List<IMechanicBuff> _buffs;
-
-
+        
         void Awake ()
         {
             // Setting up the references.
@@ -84,7 +83,7 @@ namespace CompleteProject
         {
             currentBetweenBulletsTime = timeBetweenAttacks;
             
-            currentBetweenBulletsTime -= enemyHealth.GetBuffSumValue(_buffs,x => x.MechanicsType == MechanicsType.AttackSpeed);
+            currentBetweenBulletsTime -= GameManager.Manager.BuffManager.GetBuffData<>().enemyHealth.GetBuffSumValue(_buffs,x => x.MechanicsType == MechanicsType.AttackSpeed);
 
             currentdamagePerShot = attackDamage;
 

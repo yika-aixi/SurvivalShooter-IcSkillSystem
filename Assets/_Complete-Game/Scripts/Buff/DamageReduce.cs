@@ -6,53 +6,28 @@
 //Assembly-CSharp
 
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
+using CabinIcarus.IcSkillSystem.SkillSystem.Runtime.Utils;
 using UnityEngine;
 
 namespace Scripts.Buff
 {
-    public class DamageReduceFixed:IDamageReduceFixedBuff,IBuffTimeDataComponent,IIcon
+    public struct DamageReduceFixed:IDamageReduceFixedBuff,IBuffTimeDataComponent,IIcon
     {
         public float Value { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Type { get; set; }
         public float Duration { get; set; }
-        public Sprite Icon { get; set; }
-        public string IconName { get; set; }
+        public ECSString IconName { get; set; }
     }
 
-    public class DamageReducePercentage:IDamageReducePercentageBuff,IBuffTimeDataComponent,IIcon
+    public struct DamageReducePercentage:IDamageReducePercentageBuff,IBuffTimeDataComponent,IIcon
     {
         public float Value { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Type { get; set; }
         public float Duration { get; set; }
-        public Sprite Icon { get; set; }
-        public string IconName { get; set; }
-    }
-    
-    public struct DamageReduceFixedStruct:IDamageReduceFixedStructBuff,IBuffTimeDataComponent
-    {
-        public float Value { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int Type { get; set; }
-        public float Duration { get; set; }
-        public Sprite Icon { get; set; }
-        public string IconName { get; set; }
-        public int ID { get; }
-    }
-
-    public struct DamageReducePercentageStruct:IDamageReducePercentageStructBuff,IBuffTimeDataComponent
-    {
-        public float Value { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int Type { get; set; }
-        public float Duration { get; set; }
-        public Sprite Icon { get; set; }
-        public string IconName { get; set; }
-        public int ID { get; }
+        public ECSString IconName { get; set; }
     }
 }

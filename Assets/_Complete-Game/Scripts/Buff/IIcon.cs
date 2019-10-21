@@ -1,11 +1,10 @@
-﻿using UnityEngine;
+﻿using CabinIcarus.IcSkillSystem.SkillSystem.Runtime.Utils;
+using UnityEngine;
 
 namespace Scripts.Buff
 {
     public interface IIcon
     {
-        Sprite Icon { get; set; }
-        
-        string IconName { get; set; }
+        ECSString IconName { get; set; }
     }
 }

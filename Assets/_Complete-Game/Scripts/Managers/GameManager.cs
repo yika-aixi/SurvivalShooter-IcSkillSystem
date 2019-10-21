@@ -5,15 +5,14 @@
 //2019年09月28日-14:41
 //Assembly-CSharp
 
-using System;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
-using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs.Systems;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
+using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using CabinIcarus.IcSkillSystem.Runtime.Skills.Manager;
 using NPBehave;
 using Scripts.Buff.System;
-using SkillSystem.SkillSystem.Scripts.Expansion.Runtime.Builtin.Skills.Manager;
+using SkillSystem.SkillSystem.Scripts.Expansion.Runtime.Builtin.Entitys;
 using UnityEngine;
 
 namespace CompleteProject
@@ -23,7 +22,9 @@ namespace CompleteProject
     {
         public static GameManager Manager;
 
-        public IBuffManager<IBuffDataComponent> BuffManager;
+        public IcSkSEntityManager EntityManager;
+
+        public BuffManager_Struct BuffManager;
 
         public ISkillManager SkillManager;
 
@@ -43,23 +44,21 @@ namespace CompleteProject
 
             var blackboard = UnityContext.GetSharedBlackboard(SharedBlackboardKey);
 
-            BuffManager = new BuffManager();
+            BuffManager = new BuffManager_Struct();
 
-            SkillManager = new SkillManager();
-            
             blackboard.Set(BuffManagerKey,BuffManager);
             
             blackboard.Set(SkillManagerKey,SkillManager);
 
-            BuffManager
-                .AddBuffSystem(new BuffTimeSystem<IBuffDataComponent>(BuffManager))
-                .AddBuffSystem(new AttackSpeedPercentageSystem(BuffManager))
-                .AddBuffSystem(new DamageReduceFixedSystem(BuffManager))
-                .AddBuffSystem(new DamageReducePercentageSystem(BuffManager))
-                .AddBuffSystem(new LifestealFixedSystem(BuffManager))
-                .AddBuffSystem(new LifestealPercentageSystem(BuffManager))
-                .AddBuffSystem(new DamageSystem(BuffManager))
-                .AddBuffSystem(new DeathSystem(BuffManager));
+//            BuffManager
+//                .AddBuffSystem(new BuffTimeSystem<IBuffDataComponent>(BuffManager))
+//                .AddBuffSystem(new AttackSpeedPercentageSystem(BuffManager))
+//                .AddBuffSystem(new DamageReduceFixedSystem(BuffManager))
+//                .AddBuffSystem(new DamageReducePercentageSystem(BuffManager))
+//                .AddBuffSystem(new LifestealFixedSystem(BuffManager))
+//                .AddBuffSystem(new LifestealPercentageSystem(BuffManager))
+//                .AddBuffSystem(new DamageSystem(BuffManager))
+//                .AddBuffSystem(new DeathSystem(BuffManager));
         }
 
         private void Update()
