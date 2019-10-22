@@ -15,16 +15,8 @@ namespace CompleteProject
     public class PlayerHealth : MonoBehaviour,IBuffDestroySystem<IcSkSEntity,Damage>
     {
         public int startingHealth = 100;                            // The amount of health the player starts the game with.
-        
-        [field:SerializeField]
-        public int currentHealth
-        {
-            get => (int) GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,HealthBuffIndex).Value;
-            set =>  GameManager.Manager.BuffManager.SetBuffData(Entity,new Mechanics()
-            {
-                Value = Mathf.Clamp(value,0,GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,MaxHealthBuffIndex).Value)
-            }, HealthBuffIndex);
-        }
+
+        public int CurrentHealth { get; private set; }
 
         public Slider healthSlider;                                 // Reference to the UI's health bar.
         public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
@@ -80,6 +72,7 @@ namespace CompleteProject
 
             healthSlider.maxValue = startingHealth;
             healthSlider.value = startingHealth;
+            CurrentHealth = startingHealth;
             
             GameManager.Manager.BuffManager.AddBuffSystem<Damage>(this);
 
@@ -163,7 +156,9 @@ namespace CompleteProject
 
             if (damage.Entity != Entity)
             {
-                healthSlider.value = currentHealth;
+                int health = (int) GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,HealthBuffIndex).Value;
+                healthSlider.value = health;
+                CurrentHealth = health;
             }
         }
     }

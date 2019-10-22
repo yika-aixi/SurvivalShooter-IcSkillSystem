@@ -62,7 +62,7 @@ namespace CompleteProject
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
 
-            _updateAttackAndAttackSpeed();
+           // _updateAttackAndAttackSpeed();
             
             // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
             if(timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
@@ -72,7 +72,7 @@ namespace CompleteProject
             }
 
             // If the player has zero or less health...
-            if(playerHealth.currentHealth <= 0)
+            if(playerHealth.CurrentHealth <= 0)
             {
                 // ... tell the animator the player is dead.
                 anim.SetTrigger ("PlayerDead");
@@ -109,7 +109,7 @@ namespace CompleteProject
             timer = 0f;
 
             // If the player has health to lose...
-            if(playerHealth.currentHealth > 0)
+            if(playerHealth.CurrentHealth > 0)
             {
                 var damageBuff = new Damage();
                 damageBuff.Value = attackDamage;

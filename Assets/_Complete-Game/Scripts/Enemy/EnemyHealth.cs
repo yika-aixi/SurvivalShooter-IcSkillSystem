@@ -118,10 +118,10 @@ namespace CompleteProject
 //            currentHealth -= amount;
             
             // Set the position of the particle system to where the hit was sustained.
-            hitParticles.transform.position = hitPoint;
+//            hitParticles.transform.position = hitPoint;
 
             // And play the particles.
-            hitParticles.Play();
+//            hitParticles.Play();
         }
 
 

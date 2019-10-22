@@ -58,7 +58,7 @@ namespace CompleteProject
             // Add the time since Update was last called to the timer.
             timer += Time.deltaTime;
 
-            _updateAttackAndAttackSpeed();
+            //_updateAttackAndAttackSpeed();
 
 #if !MOBILE_INPUT
             // If the Fire1 button is being press and it's time to fire...

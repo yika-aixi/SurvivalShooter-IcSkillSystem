@@ -29,7 +29,7 @@ namespace CompleteProject
             // Create a layer mask for the floor layer.
             floorMask = LayerMask.GetMask ("Floor");
 #endif
-
+            CurrentSpeed = speed;
             // Set up references.
             anim = GetComponent <Animator> ();
             playerRigidbody = GetComponent <Rigidbody> ();
@@ -71,7 +71,7 @@ namespace CompleteProject
 
         private void _updateMoveSpeed()
         {
-            CurrentSpeed = GameManager.Manager.BuffManager.GetBuffData<Mechanics>(_player.Entity,_player.MoveSpeedBuffIndex).Value;
+//            CurrentSpeed = GameManager.Manager.BuffManager.GetBuffData<Mechanics>(_player.Entity,_player.MoveSpeedBuffIndex).Value;
         }
 
 

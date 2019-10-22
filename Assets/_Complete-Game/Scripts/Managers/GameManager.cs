@@ -23,6 +23,7 @@ namespace CompleteProject
     [DefaultExecutionOrder(-1)]
     public class GameManager:MonoBehaviour
     {
+        public int Frame = 60;
         public static GameManager Manager;
 
         public IcSkSEntityManager EntityManager;
@@ -44,6 +45,8 @@ namespace CompleteProject
         private void Awake()
         {
             Manager = this;
+
+            Application.targetFrameRate = Frame;
 
             var blackboard = UnityContext.GetSharedBlackboard(SharedBlackboardKey);
 
