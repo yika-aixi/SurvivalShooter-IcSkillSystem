@@ -79,7 +79,7 @@ namespace CompleteProject
 #if UNITY_EDITOR
             var link = gameObject.AddComponent < BuffEntityLinkComponent>();
             
-            link.Init(GameManager.Manager.EntityManager,GameManager.Manager.BuffManager,Entity);
+            link.Init(GameManager.Manager.EntityManager,Entity);
 #endif
         }
 

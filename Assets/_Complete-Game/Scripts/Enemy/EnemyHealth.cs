@@ -48,9 +48,14 @@ namespace CompleteProject
         
         #endregion
 
+        private static bool _isAdd;
         void Awake ()
         {
-            GameManager.Manager.BuffManager.AddBuffSystem<DeathStruct>(this);
+            if (!_isAdd)
+            {
+                _isAdd = true;
+                GameManager.Manager.BuffManager.AddBuffSystem<DeathStruct>(this);
+            }
 
             Entity = GameManager.Manager.EntityManager.CreateEntityAndBind(gameObject, gameObject.GetInstanceID());
             
@@ -84,7 +89,7 @@ namespace CompleteProject
 #if UNITY_EDITOR
             var link = gameObject.AddComponent <BuffEntityLinkComponent>();
             
-            link.Init(GameManager.Manager.EntityManager,GameManager.Manager.BuffManager,Entity);
+            link.Init(GameManager.Manager.EntityManager,Entity);
 #endif
         }
 
