@@ -45,9 +45,14 @@ namespace CompleteProject
         
         #endregion
 
+        private static bool _isAdd;
         void Awake ()
         {
-            GameManager.Manager.BuffManager.AddBuffSystem<DeathStruct>(this);
+            if (!_isAdd)
+            {
+                _isAdd = true;
+                GameManager.Manager.BuffManager.AddBuffSystem<DeathStruct>(this);
+            }
 
             Entity = GameManager.Manager.EntityManager.CreateEntityAndBind(gameObject, gameObject.GetInstanceID());
             

@@ -49,6 +49,7 @@ namespace CompleteProject
             gunLight = GetComponent<Light> ();
             _buff = new List<IMechanicBuff>();
             _buffs = new List<IMechanicBuff>();
+            currentdamagePerShot = damagePerShot;
 			//faceLight = GetComponentInChildren<Light> ();
             currentdamagePerShot = damagePerShot;
         }
