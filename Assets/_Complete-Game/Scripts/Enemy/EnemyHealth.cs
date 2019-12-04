@@ -1,15 +1,12 @@
-﻿using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
-using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
-using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs.Unity;
-using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
+﻿using CabinIcarus.IcSkillSystem.Expansion.Builtin.Component;
+using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems.Interfaces;
-using Scripts.Buff;
 using UnityEngine;
 
 namespace CompleteProject
 {
-    public class EnemyHealth : MonoBehaviour,IBuffCreateSystem<IcSkSEntity,DeathStruct>
+    public class EnemyHealth : MonoBehaviour,IBuffCreateSystem<IcSkSEntity>
     {
         public int startingHealth = 100;            // The amount of health the enemy starts the game with.
 
@@ -77,14 +74,13 @@ namespace CompleteProject
             enemyAudio = GetComponent <AudioSource> ();
             hitParticles = GetComponentInChildren <ParticleSystem> ();
             capsuleCollider = GetComponent <CapsuleCollider> ();
-            
 //            // Setting the current health when the enemy first spawns.
 //            currentHealth = startingHealth;
             
 #if UNITY_EDITOR
             var link = gameObject.AddComponent <BuffEntityLinkComponent>();
             
-            link.Init(GameManager.Manager.EntityManager,GameManager.Manager.BuffManager,Entity);
+            link.Init(GameManager.Manager.EntityManager,Entity);
 #endif
         }
 
@@ -111,17 +107,16 @@ namespace CompleteProject
 
             // Play the hurt sound effect.
             enemyAudio.Play ();
-            
             GameManager.Manager.BuffManager.AddBuff(Entity,damage);
 
 //            // Reduce the current health by the amount of damage sustained.
 //            currentHealth -= amount;
             
-            // Set the position of the particle system to where the hit was sustained.
-//            hitParticles.transform.position = hitPoint;
+//             Set the position of the particle system to where the hit was sustained.
+            hitParticles.transform.position = hitPoint;
 
             // And play the particles.
-//            hitParticles.Play();
+            hitParticles.Play();
         }
 
 

@@ -1,18 +1,14 @@
-﻿using UnityEngine;
+﻿using CabinIcarus.IcSkillSystem.Expansion.Builtin.Component;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
-using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
-using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs.Unity;
-using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems.Interfaces;
-using Scripts.Buff;
 using UnityEngine.SceneManagement;
 
 namespace CompleteProject
 {
-    public class PlayerHealth : MonoBehaviour,IBuffDestroySystem<IcSkSEntity,Damage>
+    public class PlayerHealth : MonoBehaviour,IBuffDestroySystem<IcSkSEntity>
     {
         public int startingHealth = 100;                            // The amount of health the player starts the game with.
 
@@ -77,9 +73,9 @@ namespace CompleteProject
             GameManager.Manager.BuffManager.AddBuffSystem<Damage>(this);
 
 #if UNITY_EDITOR
-            var link = gameObject.AddComponent < BuffEntityLinkComponent>();
+            var link = gameObject.AddComponent<BuffEntityLinkComponent>();
             
-            link.Init(GameManager.Manager.EntityManager,GameManager.Manager.BuffManager,Entity);
+            link.Init(GameManager.Manager.EntityManager,Entity);
 #endif
         }
 

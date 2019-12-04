@@ -50,6 +50,7 @@ namespace CompleteProject
             _buff = new List<IMechanicBuff>();
             _buffs = new List<IMechanicBuff>();
 			//faceLight = GetComponentInChildren<Light> ();
+            currentdamagePerShot = damagePerShot;
         }
 
 
