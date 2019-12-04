@@ -1,3 +1,6 @@
 [submodule "IcSkillSystem"]
 	path = Assets/IcSkillSystem
 	url = https://github.com/yika-aixi/IcSkillSystem.git
+[submodule "Assets/Joystick"]
+	path = Assets/Joystick
+	url = https://github.com/yika-aixi/Unity3D-Simple-Mobile-Joystick.git
