@@ -35,7 +35,7 @@ namespace CompleteProject
             Profiler.BeginSample("Enemy Update");
             _updateCurrentMoveSpeed();
             // If the enemy and the player have health left...
-            if( enemyHealth.currentHealth > 0 && 
+            if( enemyHealth.startingHealth > 0 && 
                 playerHealth.CurrentHealth > 0)
             {
                 // ... set the destination of the nav mesh agent to the player.

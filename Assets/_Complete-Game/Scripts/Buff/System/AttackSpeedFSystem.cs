@@ -5,22 +5,18 @@
 //2019年09月28日-16:02
 //Assembly-CSharp
 
-using System.Collections.Generic;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs;
-using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems;
-using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems.Interfaces;
-using NotImplementedException = System.NotImplementedException;
 
 namespace Scripts.Buff.System
 {
-    public class AttackSpeedPercentageSystem:AIcStructBuffSystem<IcSkSEntity,MechanicsTimeP>
+    public class AttackSpeedPercentageSystem:AIcStructBuffSystem<IIcSkSEntity,MechanicsTimeP>
     {
-        private readonly IStructBuffManager<IcSkSEntity> _buffManager;
+        private readonly IStructBuffManager<IIcSkSEntity> _buffManager;
 
-        public override void Create(IcSkSEntity entity, int index)
+        public override void Create(IIcSkSEntity entity, int index)
         {
             var mechanics = _buffManager.GetBuffs<Mechanics>(entity);
             
@@ -56,7 +52,7 @@ namespace Scripts.Buff.System
             }
         }
         
-        public override void Destroy(IcSkSEntity entity, int index)
+        public override void Destroy(IIcSkSEntity entity, int index)
         {
             var mechanics = _buffManager.GetBuffs<Mechanics>(entity);
             
@@ -91,7 +87,7 @@ namespace Scripts.Buff.System
             }
         }
 
-        public AttackSpeedPercentageSystem(IStructBuffManager<IcSkSEntity> buffManager) : base(buffManager)
+        public AttackSpeedPercentageSystem(IStructBuffManager<IIcSkSEntity> buffManager) : base(buffManager)
         {
         }
     }

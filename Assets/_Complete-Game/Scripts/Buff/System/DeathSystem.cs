@@ -5,20 +5,16 @@
 //2019年09月28日-15:11
 //Assembly-CSharp
 
-using System.Collections.Generic;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
-using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs;
-using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
-using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems.Interfaces;
 
 namespace Scripts.Buff.System
 {
     public class DeathSystem:IBuffUpdateSystem
     {
-        private readonly IStructBuffManager<IcSkSEntity> _buffManager;
+        private readonly IStructBuffManager<IIcSkSEntity> _buffManager;
 
         public void Execute()
         {
@@ -39,7 +35,7 @@ namespace Scripts.Buff.System
             }
         }
 
-        public DeathSystem(IStructBuffManager<IcSkSEntity> buffManager)
+        public DeathSystem(IStructBuffManager<IIcSkSEntity> buffManager)
         {
             this._buffManager = buffManager;
         }

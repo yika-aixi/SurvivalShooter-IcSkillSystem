@@ -153,7 +153,7 @@ namespace CompleteProject
                 {
                     var damage = new Damage();
                     damage.Value = currentdamagePerShot;
-                    damage.Entity = Player.Entity;
+                    damage.Entity = Player.Entity.FromIIcSkSEntity();
                     damage.Type = DamageType;
                     // ... the enemy should take damage.
                     enemyHealth.TakeDamage (damage, shootHit.point);

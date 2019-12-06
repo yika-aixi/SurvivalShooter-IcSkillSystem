@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
+using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using Scripts.Buff;
 
 namespace CompleteProject
@@ -65,7 +66,7 @@ namespace CompleteProject
            // _updateAttackAndAttackSpeed();
             
             // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
-            if(timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
+            if(timer >= timeBetweenAttacks && playerInRange && enemyHealth.startingHealth > 0)
             {
                 // ... attack.
                 Attack ();
@@ -113,7 +114,7 @@ namespace CompleteProject
             {
                 var damageBuff = new Damage();
                 damageBuff.Value = attackDamage;
-                damageBuff.Entity = enemyHealth.Entity;
+                damageBuff.Entity = enemyHealth.Entity.FromIIcSkSEntity();
                 damageBuff.Type = DamageType;
                 playerHealth.TakeDamage(damageBuff);
             }

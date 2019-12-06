@@ -8,14 +8,11 @@
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Builtin.Buffs.Systems;
-using CabinIcarus.IcSkillSystem.Runtime.Buffs;
-using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using CabinIcarus.IcSkillSystem.Runtime.Skills.Manager;
 using NPBehave;
 using Scripts.Buff;
 using Scripts.Buff.System;
-using SkillSystem.SkillSystem.Scripts.Expansion.Runtime.Builtin.Entitys;
 using UnityEngine;
 
 namespace CompleteProject
@@ -26,9 +23,9 @@ namespace CompleteProject
         public int Frame = 60;
         public static GameManager Manager;
 
-        public IcSkSEntityManager EntityManager;
+//        public IcSkSEntityManager EntityManager;
 
-        public BuffManager_Struct BuffManager;
+        public BuffManager_Struct<IIcSkSEntity> BuffManager;
 
         public ISkillManager SkillManager;
 
@@ -50,9 +47,9 @@ namespace CompleteProject
 
             var blackboard = UnityContext.GetSharedBlackboard(SharedBlackboardKey);
 
-            BuffManager = new BuffManager_Struct();
+            BuffManager = new BuffManager_Struct<IIcSkSEntity>();
 
-            EntityManager = new IcSkSEntityManager(BuffManager);
+//            EntityManager = new IcSkSEntityManager(BuffManager);
 
             blackboard.Set(BuffManagerKey,BuffManager);
             
@@ -66,19 +63,21 @@ namespace CompleteProject
                 .AddBuffSystem<DamageReducePercentage>(new BuffTimeSystem<DamageReducePercentage>(BuffManager))
                 .AddBuffSystem<MechanicsTime>(new BuffTimeSystem<MechanicsTime>(BuffManager))
                 .AddBuffSystem<MechanicsTimeP>(new BuffTimeSystem<MechanicsTimeP>(BuffManager))
-                
+
                 //攻击速度计算
                 .AddBuffSystem<MechanicsTimeP>(new AttackSpeedPercentageSystem(BuffManager))
                 //固定伤害减少
-                .AddBuffSystem<Damage>(new DamageReduceFixedSystem<DamageReduceFixed,Damage>(BuffManager))
+                .AddBuffSystem<Damage>(new DamageReduceFixedSystem<DamageReduceFixed, Damage>(BuffManager))
                 //百分比伤害减少
-                .AddBuffSystem<Damage>(new DamageReducePercentageSystem<DamageReducePercentage,Damage>(BuffManager))
+                .AddBuffSystem<Damage>(new DamageReducePercentageSystem<DamageReducePercentage, Damage>(BuffManager))
                 //固定吸血
-                .AddBuffSystem<Damage>(new LifestealFixedSystem<Mechanics,LifestealFixed,Damage>(BuffManager))
+                .AddBuffSystem<Damage>(new LifestealFixedSystem<Mechanics, LifestealFixed, Damage>(BuffManager))
                 //百分比吸血
                 .AddBuffSystem<Damage>(new LifestealPercentageSystem<Mechanics,LifestealPercentage,Damage>(BuffManager))
                 //伤害处理
                 .AddBuffSystem<Damage>(new DamageSystem<Mechanics,Damage>(BuffManager))
+                .AddBuffSystem<Damage>(new HealthChangeSys<Damage>(BuffManager))
+                
                 //死亡
                 .AddBuffSystem<DeathStruct>(new DeathSystem(BuffManager));
         }

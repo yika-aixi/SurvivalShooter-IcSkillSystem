@@ -6,10 +6,8 @@
 //Assembly-CSharp
 
 using System;
-using CabinIcarus.IcSkillSystem.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
 using CompleteProject;
-using SkillSystem.SkillSystem.Scripts.Expansion.Runtime.Builtin.Entitys;
 using UnityEngine;
 
 namespace Scripts.Buff
@@ -35,26 +33,26 @@ namespace Scripts.Buff
                 return;
             }
             
-            var entity = other.GetComponent<EntityBindComponent>();
+            var entity = other.GetComponent<IIcSkSEntity>();
             
             if (entity != null)
             {
                 switch (Type)
                 {
                     case BuffType.伤害减少_固定:
-                        GameManager.Manager.BuffManager.AddBuff(entity.Entity,DamageReduceFixed);
+                        GameManager.Manager.BuffManager.AddBuff(entity,DamageReduceFixed);
                         break;
                     case BuffType.伤害减少_百分比:
-                        GameManager.Manager.BuffManager.AddBuff(entity.Entity,DamageReducePercentage);
+                        GameManager.Manager.BuffManager.AddBuff(entity,DamageReducePercentage);
                         break;
                     case BuffType.属性:
-                        GameManager.Manager.BuffManager.AddBuff(entity.Entity,MechanicsTime);
+                        GameManager.Manager.BuffManager.AddBuff(entity,MechanicsTime);
                         break;
                     case BuffType.吸血_固定:
-                        GameManager.Manager.BuffManager.AddBuff(entity.Entity,LifestealFixed);
+                        GameManager.Manager.BuffManager.AddBuff(entity,LifestealFixed);
                         break;
                     case BuffType.吸血_百分比:
-                        GameManager.Manager.BuffManager.AddBuff(entity.Entity,LifestealPercentage);
+                        GameManager.Manager.BuffManager.AddBuff(entity,LifestealPercentage);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

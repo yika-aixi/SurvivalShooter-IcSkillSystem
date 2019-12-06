@@ -1,26 +1,26 @@
 ﻿using CabinIcarus.IcSkillSystem.Expansion.Builtin.Component;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
-using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems.Interfaces;
 using UnityEngine;
 
 namespace CompleteProject
 {
-    public class EnemyHealth : MonoBehaviour,IBuffCreateSystem<IcSkSEntity>
+    public class EnemyHealth : MonoBehaviour,IIcSkSEntity
     {
         public int startingHealth = 100;            // The amount of health the enemy starts the game with.
 
+        public float CurrentHealth
+        {
+            get => startingHealth;
+            set
+            {
+                startingHealth = (int) value;
+            }
+        }
+        
         public float MoveSpeed = 3;
         public int _cuu;
-        [field:SerializeField]
-        public int currentHealth
-        {
-            get => (int) GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,HealthBuffIndex).Value;
-            set =>  GameManager.Manager.BuffManager.SetBuffData(Entity,new Mechanics()
-            {
-                Value = Mathf.Clamp(value,0,GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,MaxHealthBuffIndex).Value)
-            }, HealthBuffIndex);
-        }
+      
         // The current health the enemy has.
         public float sinkSpeed = 2.5f;              // The speed at which the enemy sinks through the floor when dead.
         public int scoreValue = 10;                 // The amount added to the player's score when the enemy dies.
@@ -35,7 +35,7 @@ namespace CompleteProject
 
         #region Buff
 
-        public IcSkSEntity Entity { get; private set; }
+        public IIcSkSEntity Entity { get; private set; }
 
         public int HealthBuffIndex { get; } = 0;
         
@@ -45,35 +45,10 @@ namespace CompleteProject
         
         #endregion
 
-        private static bool _isAdd;
         void Awake ()
         {
-            if (!_isAdd)
-            {
-                _isAdd = true;
-                GameManager.Manager.BuffManager.AddBuffSystem<DeathStruct>(this);
-            }
-
-            Entity = GameManager.Manager.EntityManager.CreateEntityAndBind(gameObject, gameObject.GetInstanceID());
-            
-            GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
-            {
-                Value = startingHealth,
-                MechanicsType = MechanicsType.Health
-            });
-            
-            GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
-            {
-                Value = startingHealth,
-                MechanicsType = MechanicsType.MoveSpeed
-            });
-
-            GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
-            {
-                Value = MoveSpeed,
-                MechanicsType = MechanicsType.Health
-            });
-            
+            Entity = this;
+            GameManager.Manager.BuffManager.AddEntity(this);
             // Setting up the references.
             anim = GetComponent <Animator> ();
             enemyAudio = GetComponent <AudioSource> ();
@@ -85,13 +60,12 @@ namespace CompleteProject
 #if UNITY_EDITOR
             var link = gameObject.AddComponent <BuffEntityLinkComponent>();
             
-            link.Init(GameManager.Manager.EntityManager,Entity);
+            link.Init(GameManager.Manager.BuffManager,Entity);
 #endif
         }
 
         void Update ()
         {
-            _cuu = currentHealth;
             // If the enemy should be sinking...
             if(isSinking)
             {
@@ -157,19 +131,6 @@ namespace CompleteProject
             Destroy (gameObject, 2f);
         }
 
-        public void Create(IcSkSEntity entity, int index)
-        {
-            var go = GameManager.Manager.EntityManager.FindBindGo(entity);
-
-            if (go)
-            {
-                var health = go.GetComponent<EnemyHealth>();
-
-                if (health != null)
-                {
-                    health.Death();
-                }
-            }
-        }
+        public int ID => GetInstanceID();
     }
 }

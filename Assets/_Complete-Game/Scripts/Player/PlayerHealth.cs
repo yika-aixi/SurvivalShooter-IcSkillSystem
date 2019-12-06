@@ -3,17 +3,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
-using CabinIcarus.IcSkillSystem.Runtime.Buffs.Systems.Interfaces;
 using UnityEngine.SceneManagement;
 
 namespace CompleteProject
 {
-    public class PlayerHealth : MonoBehaviour,IBuffDestroySystem<IcSkSEntity>
+    public class PlayerHealth : MonoBehaviour,IIcSkSEntity
     {
         public int startingHealth = 100;                            // The amount of health the player starts the game with.
-
-        public int CurrentHealth { get; private set; }
-
+        public float CurrentHealth
+        {
+            get => startingHealth;
+            set
+            {
+                startingHealth = (int) value;
+                healthSlider.value = value;
+            }
+        }
         public Slider healthSlider;                                 // Reference to the UI's health bar.
         public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
         public AudioClip deathClip;                                 // The audio clip to play when the player dies.
@@ -26,7 +31,7 @@ namespace CompleteProject
         PlayerShooting playerShooting;                              // Reference to the PlayerShooting script.
         bool damaged;                                               // True when the player gets damaged.
 
-        public IcSkSEntity Entity { get; private set; }
+        public IIcSkSEntity Entity { get; private set; }
 
         #region Buff
 
@@ -46,36 +51,15 @@ namespace CompleteProject
             playerMovement = GetComponent <PlayerMovement> ();
             playerShooting = GetComponentInChildren <PlayerShooting> ();
 
-            Entity = GameManager.Manager.EntityManager.CreateEntityAndBind(gameObject,gameObject.GetInstanceID());
-            
-            GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
-            {
-                Value = startingHealth,
-                MechanicsType = MechanicsType.Health
-            });
-            
-            GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
-            {
-                Value = startingHealth,
-                MechanicsType = MechanicsType.MoveSpeed
-            });
-
-            GameManager.Manager.BuffManager.AddBuff<Mechanics>(Entity,new Mechanics()
-            {
-                Value = playerMovement.speed,
-                MechanicsType = MechanicsType.Health
-            });
-
+            Entity = this;
+            GameManager.Manager.BuffManager.AddEntity(this);
             healthSlider.maxValue = startingHealth;
             healthSlider.value = startingHealth;
-            CurrentHealth = startingHealth;
-            
-            GameManager.Manager.BuffManager.AddBuffSystem<Damage>(this);
 
 #if UNITY_EDITOR
             var link = gameObject.AddComponent<BuffEntityLinkComponent>();
             
-            link.Init(GameManager.Manager.EntityManager,Entity);
+            link.Init(GameManager.Manager.BuffManager,Entity);
 #endif
         }
 
@@ -146,16 +130,6 @@ namespace CompleteProject
             SceneManager.LoadScene (0);
         }
 
-        public void Destroy(IcSkSEntity entity, int index)
-        {
-            var damage = GameManager.Manager.BuffManager.GetBuffData<Damage>(entity, index);
-
-            if (damage.Entity != Entity)
-            {
-                int health = (int) GameManager.Manager.BuffManager.GetBuffData<Mechanics>(Entity,HealthBuffIndex).Value;
-                healthSlider.value = health;
-                CurrentHealth = health;
-            }
-        }
+        public int ID => GetInstanceID();
     }
 }

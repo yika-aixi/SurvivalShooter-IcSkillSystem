@@ -24,7 +24,7 @@ namespace CompleteProject
     {
         class IconInfo
         {
-            public IcSkSEntity Entity;
+            public IIcSkSEntity Entity;
             public IBuffDataComponent Buff;
             public Image Icon;
         }
