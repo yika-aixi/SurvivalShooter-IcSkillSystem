@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7663450372068929726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f7eb766e89423caa404dfdfa7b27ac, type: 3}
+  m_Name: Destroy
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -472, y: 392}
+  ports:
+    keys:
+    - _target
+    - OutValue
+    values:
+    - _fieldName: _target
+      _node: {fileID: -7663450372068929726}
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _instantiates
+        node: {fileID: 4994567791736295313}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: OutValue
+      _node: {fileID: -7663450372068929726}
+      _typeQualifiedName: NPBehave.Action, CabinIcarus.NPBehave, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _nodes
+        node: {fileID: 2505593187805293949}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14,12 +59,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 6566302018761851400}
-  - {fileID: 4994567791736295313}
-  - {fileID: 4346799119302177534}
   - {fileID: 2505593187805293949}
+  - {fileID: -7663450372068929726}
+  - {fileID: 4994567791736295313}
+  - {fileID: 1741790573375955284}
+  - {fileID: 2836908550641660094}
+  - {fileID: 5524561635612932899}
   _varMap:
     _keys: []
     _values: []
+--- !u!114 &1741790573375955284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9230856485f74f478c7b8e350a875138, type: 3}
+  m_Name: Get Target Position
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -808, y: -56}
+  ports:
+    keys:
+    - _target
+    - _loacal
+    - Value
+    values:
+    - _fieldName: _target
+      _node: {fileID: 1741790573375955284}
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: bulletPoint
+        node: {fileID: 6566302018761851400}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: _loacal
+      _node: {fileID: 1741790573375955284}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: Value
+      _node: {fileID: 1741790573375955284}
+      _typeQualifiedName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _pos
+        node: {fileID: 4994567791736295313}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  _loacal: 0
 --- !u!114 &2505593187805293949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33,7 +138,7 @@ MonoBehaviour:
   m_Name: Sequence
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -24, y: 24}
+  position: {x: -40, y: 56}
   ports:
     keys:
     - OutValue
@@ -62,13 +167,19 @@ MonoBehaviour:
         node: {fileID: 4994567791736295313}
         reroutePoints: []
       - fieldName: OutValue
-        node: {fileID: 4346799119302177534}
+        node: {fileID: 2836908550641660094}
+        reroutePoints: []
+      - fieldName: OutValue
+        node: {fileID: 5524561635612932899}
+        reroutePoints: []
+      - fieldName: OutValue
+        node: {fileID: -7663450372068929726}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 1
       _dynamic: 0
---- !u!114 &4346799119302177534
+--- !u!114 &2836908550641660094
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,73 +188,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743d96ced70da7b44b4bcb8aa6fa0a6d, type: 3}
-  m_Name: Translate
+  m_Script: {fileID: 11500000, guid: 8aa4c4db1d164869a6f633397d9f4c13, type: 3}
+  m_Name: Add Force
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -328, y: 216}
+  position: {x: -472, y: 104}
   ports:
     keys:
+    - _mode
+    - _force
+    - OutValue
+    - _target
     - _moveResult
     - _completeResult
-    - _space
-    - _speed
-    - _stopDis
-    - OutValue
-    - _destination
+    - _forward
     values:
-    - _fieldName: _moveResult
-      _node: {fileID: 4346799119302177534}
-      _typeQualifiedName: NPBehave.Action+Result, CabinIcarus.NPBehave, Version=0.0.0.0,
+    - _fieldName: _mode
+      _node: {fileID: 2836908550641660094}
+      _typeQualifiedName: UnityEngine.ForceMode, UnityEngine.PhysicsModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections: []
       _direction: 0
       _connectionType: 1
-      _typeConstraint: 1
+      _typeConstraint: 2
       _dynamic: 0
-    - _fieldName: _completeResult
-      _node: {fileID: 4346799119302177534}
-      _typeQualifiedName: NPBehave.Action+Result, CabinIcarus.NPBehave, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      _typeConstraintBaseTypeQualifiedName: 
-      connections: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 1
-      _dynamic: 0
-    - _fieldName: _space
-      _node: {fileID: 4346799119302177534}
-      _typeQualifiedName: UnityEngine.Space, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      _typeConstraintBaseTypeQualifiedName: 
-      connections: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 1
-      _dynamic: 0
-    - _fieldName: _speed
-      _node: {fileID: 4346799119302177534}
+    - _fieldName: _force
+      _node: {fileID: 2836908550641660094}
       _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       _typeConstraintBaseTypeQualifiedName: 
-      connections: []
+      connections:
+      - fieldName: MoveDistance
+        node: {fileID: 6566302018761851400}
+        reroutePoints: []
       _direction: 0
       _connectionType: 1
-      _typeConstraint: 1
-      _dynamic: 0
-    - _fieldName: _stopDis
-      _node: {fileID: 4346799119302177534}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      _typeConstraintBaseTypeQualifiedName: 
-      connections: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 1
+      _typeConstraint: 2
       _dynamic: 0
     - _fieldName: OutValue
-      _node: {fileID: 4346799119302177534}
+      _node: {fileID: 2836908550641660094}
       _typeQualifiedName: NPBehave.Action, CabinIcarus.NPBehave, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
@@ -155,22 +239,181 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-    - _fieldName: _destination
-      _node: {fileID: 4346799119302177534}
-      _typeQualifiedName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
+    - _fieldName: _target
+      _node: {fileID: 2836908550641660094}
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _instantiates
+        node: {fileID: 4994567791736295313}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: _moveResult
+      _node: {fileID: 2836908550641660094}
+      _typeQualifiedName: NPBehave.Action+Result, CabinIcarus.NPBehave, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections: []
       _direction: 0
       _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: _completeResult
+      _node: {fileID: 2836908550641660094}
+      _typeQualifiedName: NPBehave.Action+Result, CabinIcarus.NPBehave, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: _forward
+      _node: {fileID: 2836908550641660094}
+      _typeQualifiedName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: forward
+        node: {fileID: 6566302018761851400}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _destination: {x: 0, y: 0, z: 10}
   _moveResult: 3
   _completeResult: 0
+  _mode: 0
+  _force: 1000
+--- !u!114 &3270302980162944044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e96ca55af54dc2ae3c081da24723f0, type: 3}
+  m_Name: Distance
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -488, y: 136}
+  ports:
+    keys:
+    - _destination
+    - _space
+    - _speed
+    - _stopDis
+    - OutValue
+    - _target
+    - _moveResult
+    - _completeResult
+    values:
+    - _fieldName: _destination
+      _node: {fileID: 3270302980162944044}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: MoveDistance
+        node: {fileID: 6566302018761851400}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: _space
+      _node: {fileID: 3270302980162944044}
+      _typeQualifiedName: UnityEngine.Space, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: _speed
+      _node: {fileID: 3270302980162944044}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: _stopDis
+      _node: {fileID: 3270302980162944044}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: OutValue
+      _node: {fileID: 3270302980162944044}
+      _typeQualifiedName: NPBehave.Action, CabinIcarus.NPBehave, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _nodes
+        node: {fileID: 2505593187805293949}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: _target
+      _node: {fileID: 3270302980162944044}
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _instantiates
+        node: {fileID: 4994567791736295313}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: _moveResult
+      _node: {fileID: 3270302980162944044}
+      _typeQualifiedName: NPBehave.Action+Result, CabinIcarus.NPBehave, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: _completeResult
+      _node: {fileID: 3270302980162944044}
+      _typeQualifiedName: NPBehave.Action+Result, CabinIcarus.NPBehave, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+  <SkillGroup>k__BackingField: {fileID: 11400000, guid: 52250a7fb83532641ad3bf4cc988ce43,
+    type: 2}
+  _target: {fileID: 0}
+  _moveResult: 2
+  _completeResult: 0
+  _destination: 0
   _space: 0
-  _speed: 5
-  _stopDis: 1
+  _speed: 1
+  _stopDis: 0
+  _endPos: {x: -1.7070856, y: 1.7050089, z: -4.3497386}
+  _setEnd: 1
 --- !u!114 &4994567791736295313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,11 +423,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdb5176055368741a105025992e26bb, type: 3}
+  m_Script: {fileID: 11500000, guid: bf0ccd37192b4df8b134b13d2f543049, type: 3}
   m_Name: Create Go
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -312, y: 24}
+  position: {x: -472, y: -88}
   ports:
     keys:
     - _go
@@ -200,7 +443,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
-      - fieldName: in 0
+      - fieldName: bulletGo
         node: {fileID: 6566302018761851400}
         reroutePoints: []
       _direction: 0
@@ -222,7 +465,10 @@ MonoBehaviour:
       _typeQualifiedName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
-      connections: []
+      connections:
+      - fieldName: Value
+        node: {fileID: 1741790573375955284}
+        reroutePoints: []
       _direction: 0
       _connectionType: 1
       _typeConstraint: 2
@@ -242,7 +488,13 @@ MonoBehaviour:
       _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
-      connections: []
+      connections:
+      - fieldName: _target
+        node: {fileID: -7663450372068929726}
+        reroutePoints: []
+      - fieldName: _target
+        node: {fileID: 2836908550641660094}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -260,10 +512,53 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _go: {fileID: 0}
-  _basedOnItselfPos: 1
-  _pos: {x: 0, y: 0, z: 1}
-  _quaternion: {x: 0, y: 0, z: 0, w: 1}
+  _go: {fileID: 100002, guid: 200e650fba6c8492b87e96e4bc273510, type: 3}
+  _quaternion: {x: 0, y: 0.6796436, z: 0, w: 0.7335425}
+  _basedOnItselfPos: 0
+  _pos: {x: 0, y: 0, z: 0}
+--- !u!114 &5524561635612932899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e58f830937684349a1e02cfdd3cb930, type: 3}
+  m_Name: Wait Node_Seconds
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -504, y: 296}
+  ports:
+    keys:
+    - _seconds
+    - OutValue
+    values:
+    - _fieldName: _seconds
+      _node: {fileID: 5524561635612932899}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: OutValue
+      _node: {fileID: 5524561635612932899}
+      _typeQualifiedName: NPBehave.Wait, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _nodes
+        node: {fileID: 2505593187805293949}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _seconds: 3
 --- !u!114 &6566302018761851400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,7 +577,10 @@ MonoBehaviour:
     keys:
     - _main
     - OutValue
-    - in 0
+    - bulletGo
+    - bulletPoint
+    - MoveDistance
+    - forward
     values:
     - _fieldName: _main
       _node: {fileID: 6566302018761851400}
@@ -307,7 +605,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-    - _fieldName: in 0
+    - _fieldName: bulletGo
       _node: {fileID: 6566302018761851400}
       _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
@@ -315,6 +613,45 @@ MonoBehaviour:
       connections:
       - fieldName: _go
         node: {fileID: 4994567791736295313}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: bulletPoint
+      _node: {fileID: 6566302018761851400}
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _target
+        node: {fileID: 1741790573375955284}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: MoveDistance
+      _node: {fileID: 6566302018761851400}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _force
+        node: {fileID: 2836908550641660094}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: forward
+      _node: {fileID: 6566302018761851400}
+      _typeQualifiedName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _forward
+        node: {fileID: 2836908550641660094}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
