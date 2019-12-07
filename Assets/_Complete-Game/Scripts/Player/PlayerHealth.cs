@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using CabinIcarus.IcSkillSystem.Expansion.Runtime.Buffs.Components;
 using CabinIcarus.IcSkillSystem.Runtime.Buffs.Entitys;
+using NPBehave;
 using UnityEngine.SceneManagement;
 
 namespace CompleteProject
@@ -43,6 +44,16 @@ namespace CompleteProject
 
         #endregion
 
+        [Header("Blackboard")]
+        [SerializeField]
+        private string _playerBlackboard = "player Blackboard";
+
+        [SerializeField]
+        private string _bulletPointKey = "bulletPoint";
+
+        [SerializeField]
+        private GameObject _bulletPoint; 
+        
         void Awake ()
         {
             // Setting up the references.
@@ -56,6 +67,10 @@ namespace CompleteProject
             healthSlider.maxValue = startingHealth;
             healthSlider.value = startingHealth;
 
+            var blackboard = UnityContext.GetSharedBlackboard(_playerBlackboard);
+
+            blackboard.Set(_bulletPointKey,_bulletPoint);
+            
 #if UNITY_EDITOR
             var link = gameObject.AddComponent<BuffEntityLinkComponent>();
             
