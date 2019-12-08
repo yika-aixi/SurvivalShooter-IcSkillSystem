@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &14871709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,9 +407,7 @@ MonoBehaviour:
   Frame: 25
   SharedBlackboardKey: Game Shared
   BuffManagerKey: BuffManager
-  SkillManagerKey: SkillManager
-  CurrentEntityKey: CurrentEntity
-  TargetEntityKey: TargetEntity
+  EntityManagerKey: EntityManager
 --- !u!4 &101141758
 Transform:
   m_ObjectHideFlags: 0
@@ -4306,6 +4304,8 @@ MonoBehaviour:
     _keys:
     - bullet
     - endPos
+    - radius
+    - 4
     _values:
     - _isUnity: 1
       ValueTypeAqName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -4316,6 +4316,16 @@ MonoBehaviour:
       ValueTypeAqName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       _valueStr: 500
+      _uValue: {fileID: 0}
+    - _isUnity: 0
+      ValueTypeAqName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _valueStr: 1
+      _uValue: {fileID: 0}
+    - _isUnity: 0
+      ValueTypeAqName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _valueStr: 30
       _uValue: {fileID: 0}
   OnUse:
     m_PersistentCalls:

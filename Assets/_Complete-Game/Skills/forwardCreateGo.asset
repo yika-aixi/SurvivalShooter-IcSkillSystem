@@ -1,50 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7663450372068929726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4f7eb766e89423caa404dfdfa7b27ac, type: 3}
-  m_Name: Destroy
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -472, y: 392}
-  ports:
-    keys:
-    - _target
-    - OutValue
-    values:
-    - _fieldName: _target
-      _node: {fileID: -7663450372068929726}
-      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: _instantiates
-        node: {fileID: 4994567791736295313}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: OutValue
-      _node: {fileID: -7663450372068929726}
-      _typeQualifiedName: NPBehave.Action, CabinIcarus.NPBehave, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: _nodes
-        node: {fileID: 2505593187805293949}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,11 +15,9 @@ MonoBehaviour:
   nodes:
   - {fileID: 6566302018761851400}
   - {fileID: 2505593187805293949}
-  - {fileID: -7663450372068929726}
   - {fileID: 4994567791736295313}
   - {fileID: 1741790573375955284}
   - {fileID: 2836908550641660094}
-  - {fileID: 5524561635612932899}
   _varMap:
     _keys: []
     _values: []
@@ -141,22 +94,9 @@ MonoBehaviour:
   position: {x: -40, y: 56}
   ports:
     keys:
-    - OutValue
     - _nodes
+    - OutValue
     values:
-    - _fieldName: OutValue
-      _node: {fileID: 2505593187805293949}
-      _typeQualifiedName: NPBehave.Sequence, CabinIcarus.NPBehave, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: _main
-        node: {fileID: 6566302018761851400}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
     - _fieldName: _nodes
       _node: {fileID: 2505593187805293949}
       _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
@@ -169,15 +109,22 @@ MonoBehaviour:
       - fieldName: OutValue
         node: {fileID: 2836908550641660094}
         reroutePoints: []
-      - fieldName: OutValue
-        node: {fileID: 5524561635612932899}
-        reroutePoints: []
-      - fieldName: OutValue
-        node: {fileID: -7663450372068929726}
-        reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: OutValue
+      _node: {fileID: 2505593187805293949}
+      _typeQualifiedName: NPBehave.Sequence, CabinIcarus.NPBehave, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _main
+        node: {fileID: 6566302018761851400}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
       _dynamic: 0
 --- !u!114 &2836908550641660094
 MonoBehaviour:
@@ -197,11 +144,11 @@ MonoBehaviour:
     keys:
     - _mode
     - _force
-    - OutValue
     - _target
     - _moveResult
     - _completeResult
     - _forward
+    - OutValue
     values:
     - _fieldName: _mode
       _node: {fileID: 2836908550641660094}
@@ -225,19 +172,6 @@ MonoBehaviour:
       _direction: 0
       _connectionType: 1
       _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: OutValue
-      _node: {fileID: 2836908550641660094}
-      _typeQualifiedName: NPBehave.Action, CabinIcarus.NPBehave, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: _nodes
-        node: {fileID: 2505593187805293949}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
       _dynamic: 0
     - _fieldName: _target
       _node: {fileID: 2836908550641660094}
@@ -284,6 +218,19 @@ MonoBehaviour:
       _direction: 0
       _connectionType: 1
       _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: OutValue
+      _node: {fileID: 2836908550641660094}
+      _typeQualifiedName: NPBehave.Action, CabinIcarus.NPBehave, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _nodes
+        node: {fileID: 2505593187805293949}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
       _dynamic: 0
   _moveResult: 3
   _completeResult: 0
@@ -490,10 +437,10 @@ MonoBehaviour:
       _typeConstraintBaseTypeQualifiedName: 
       connections:
       - fieldName: _target
-        node: {fileID: -7663450372068929726}
-        reroutePoints: []
-      - fieldName: _target
         node: {fileID: 2836908550641660094}
+        reroutePoints: []
+      - fieldName: bullet
+        node: {fileID: 6566302018761851400}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -516,49 +463,6 @@ MonoBehaviour:
   _quaternion: {x: 0, y: 0.6796436, z: 0, w: 0.7335425}
   _basedOnItselfPos: 0
   _pos: {x: 0, y: 0, z: 0}
---- !u!114 &5524561635612932899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e58f830937684349a1e02cfdd3cb930, type: 3}
-  m_Name: Wait Node_Seconds
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -504, y: 296}
-  ports:
-    keys:
-    - _seconds
-    - OutValue
-    values:
-    - _fieldName: _seconds
-      _node: {fileID: 5524561635612932899}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      _typeConstraintBaseTypeQualifiedName: 
-      connections: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: OutValue
-      _node: {fileID: 5524561635612932899}
-      _typeQualifiedName: NPBehave.Wait, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: _nodes
-        node: {fileID: 2505593187805293949}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  _seconds: 3
 --- !u!114 &6566302018761851400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,6 +480,7 @@ MonoBehaviour:
   ports:
     keys:
     - _main
+    - bullet
     - OutValue
     - bulletGo
     - bulletPoint
@@ -595,6 +500,19 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 1
       _dynamic: 0
+    - _fieldName: bullet
+      _node: {fileID: 6566302018761851400}
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _instantiates
+        node: {fileID: 4994567791736295313}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 1
     - _fieldName: OutValue
       _node: {fileID: 6566302018761851400}
       _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,

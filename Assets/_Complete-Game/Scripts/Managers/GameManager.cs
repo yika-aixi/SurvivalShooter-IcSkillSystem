@@ -13,6 +13,7 @@ using CabinIcarus.IcSkillSystem.Runtime.Skills.Manager;
 using NPBehave;
 using Scripts.Buff;
 using Scripts.Buff.System;
+using SkillSystem.SkillSystem.Scripts.Expansion.Runtime.Builtin.Entitys;
 using UnityEngine;
 
 namespace CompleteProject
@@ -23,22 +24,16 @@ namespace CompleteProject
         public int Frame = 60;
         public static GameManager Manager;
 
-//        public IcSkSEntityManager EntityManager;
+        public IcSkSEntityManager EntityManager;
 
         public BuffManager_Struct<IIcSkSEntity> BuffManager;
-
-        public ISkillManager SkillManager;
 
         public string SharedBlackboardKey = "Game Shared";
         
         public string BuffManagerKey = "BuffManager";
         
-        public string SkillManagerKey = "SkillManager";
+        public string EntityManagerKey = "SkillManager";
 
-        public string CurrentEntityKey = "CurrentEntity";
-        
-        public string TargetEntityKey = "TargetEntity";
-        
         private void Awake()
         {
             Manager = this;
@@ -49,11 +44,11 @@ namespace CompleteProject
 
             BuffManager = new BuffManager_Struct<IIcSkSEntity>();
 
-//            EntityManager = new IcSkSEntityManager(BuffManager);
+            EntityManager = new IcSkSEntityManager(BuffManager);
 
             blackboard.Set(BuffManagerKey,BuffManager);
             
-            blackboard.Set(SkillManagerKey,SkillManager);
+            blackboard.Set(EntityManagerKey,EntityManager);
 
             BuffManager
                 //时间减少

@@ -35,6 +35,18 @@ namespace CompleteProject
             _buffs = new List<IMechanicBuff>();
         }
 
+        [SerializeField]
+        private float fource;
+        [SerializeField]
+        private ForceMode mode;
+        [ContextMenu("AddF")]
+        void _addf()
+        {
+            var rigi = GetComponent<Rigidbody>();
+            
+            rigi.AddForce(fource * -(transform.forward),mode);
+        }
+        
 
         void OnTriggerEnter (Collider other)
         {

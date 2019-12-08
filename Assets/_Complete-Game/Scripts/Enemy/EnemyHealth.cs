@@ -15,6 +15,11 @@ namespace CompleteProject
             set
             {
                 startingHealth = (int) value;
+
+                if (startingHealth <= 0)
+                {
+                    Death();
+                }
             }
         }
         
