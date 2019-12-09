@@ -20,11 +20,12 @@ MonoBehaviour:
     - Targets
     - OutValue
     - Stops
-    - LayerMask
-    - Offset
-    - Radius
     - ChildNode
     - CastOwner
+    - Radius
+    - Offset
+    - LayerMask
+    - CheckTime
     values:
     - _fieldName: _main
       _node: {fileID: -2621073568908536634}
@@ -76,26 +77,26 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: LayerMask
+    - _fieldName: ChildNode
       _node: {fileID: -2621073568908536634}
-      _typeQualifiedName: UnityEngine.LayerMask, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
-      - fieldName: _mask
+      - fieldName: _decorateeNode
         node: {fileID: 3338476413889583217}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: Offset
+    - _fieldName: CastOwner
       _node: {fileID: -2621073568908536634}
-      _typeQualifiedName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
+      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
-      - fieldName: _offset
+      - fieldName: _owner
         node: {fileID: 3338476413889583217}
         reroutePoints: []
       _direction: 1
@@ -115,28 +116,38 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: ChildNode
+    - _fieldName: Offset
       _node: {fileID: -2621073568908536634}
-      _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
+      _typeQualifiedName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
-      - fieldName: DecorateeNode
+      - fieldName: _offset
         node: {fileID: 3338476413889583217}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: CastOwner
+    - _fieldName: LayerMask
       _node: {fileID: -2621073568908536634}
-      _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      _typeQualifiedName: UnityEngine.LayerMask, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
-      - fieldName: _owner
+      - fieldName: _mask
         node: {fileID: 3338476413889583217}
         reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: CheckTime
+      _node: {fileID: -2621073568908536634}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -172,15 +183,17 @@ MonoBehaviour:
   m_Name: Overlap Sphere
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -8, y: -40}
+  position: {x: 40, y: -88}
   ports:
     keys:
     - _radius
-    - DecorateeNode
+    - _decorateeNode
     - _mask
     - _offset
     - _stops
     - _owner
+    - _checkInterval
+    - _randomVariance
     - Result
     - OutValue
     values:
@@ -197,7 +210,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-    - _fieldName: DecorateeNode
+    - _fieldName: _decorateeNode
       _node: {fileID: 3338476413889583217}
       _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -262,6 +275,26 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
+    - _fieldName: _checkInterval
+      _node: {fileID: 3338476413889583217}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: _randomVariance
+      _node: {fileID: 3338476413889583217}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
     - _fieldName: Result
       _node: {fileID: 3338476413889583217}
       _typeQualifiedName: System.Collections.Generic.IEnumerable`1[[UnityEngine.Collider,
@@ -290,6 +323,8 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   _stops: 0
+  _checkInterval: 1
+  _randomVariance: 0
   _mask:
     serializedVersion: 2
     m_Bits: 0

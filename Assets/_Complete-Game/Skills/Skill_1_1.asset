@@ -1,5 +1,86 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8331396637726180364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 366ac85d34c9483eba0a54666e63731c, type: 3}
+  m_Name: Observer
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -824, y: -200}
+  ports:
+    keys:
+    - _start
+    - _stop
+    - _decorateeNode
+    - _stopResult
+    - OutValue
+    values:
+    - _fieldName: _start
+      _node: {fileID: -8331396637726180364}
+      _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: OutValue
+        node: {fileID: -4541632516241922998}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: _stop
+      _node: {fileID: -8331396637726180364}
+      _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: OutValue
+        node: {fileID: 583853796357609387}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: _decorateeNode
+      _node: {fileID: -8331396637726180364}
+      _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: OutValue
+        node: {fileID: -3251859903702504439}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: _stopResult
+      _node: {fileID: -8331396637726180364}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: OutValue
+      _node: {fileID: -8331396637726180364}
+      _typeQualifiedName: NPBehave.Observer, CabinIcarus.NPBehave, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
 --- !u!114 &-8290112104125163152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13,7 +94,7 @@ MonoBehaviour:
   m_Name: Destroy
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -760, y: 232}
+  position: {x: -904, y: 216}
   ports:
     keys:
     - _target
@@ -45,7 +126,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
---- !u!114 &-8245747199719791933
+--- !u!114 &-7408128668504457446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,30 +139,30 @@ MonoBehaviour:
   m_Name: Sequence
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -168, y: -344}
+  position: {x: -216, y: -200}
   ports:
     keys:
     - _nodes
     - OutValue
     values:
     - _fieldName: _nodes
-      _node: {fileID: -8245747199719791933}
+      _node: {fileID: -7408128668504457446}
       _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
       - fieldName: OutValue
-        node: {fileID: 158525076802082008}
+        node: {fileID: 2102740211539142947}
         reroutePoints: []
       - fieldName: OutValue
-        node: {fileID: 5122335475774735825}
+        node: {fileID: -5609828259115960011}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 1
       _dynamic: 0
     - _fieldName: OutValue
-      _node: {fileID: -8245747199719791933}
+      _node: {fileID: -7408128668504457446}
       _typeQualifiedName: NPBehave.Sequence, CabinIcarus.NPBehave, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
@@ -106,7 +187,7 @@ MonoBehaviour:
   m_Name: Get Blackboard Value
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1976, y: 328}
+  position: {x: -2344, y: 264}
   ports:
     keys:
     - _blackBoard
@@ -149,7 +230,7 @@ MonoBehaviour:
   m_Name: Get Target Forward
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1784, y: -232}
+  position: {x: -1560, y: -280}
   ports:
     keys:
     - _target
@@ -192,7 +273,7 @@ MonoBehaviour:
   m_Name: Get Child Group
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -744, y: -56}
+  position: {x: -1256, y: -120}
   ports:
     keys:
     - LayerMask
@@ -201,6 +282,7 @@ MonoBehaviour:
     - Radius
     - ChildNode
     - CastOwner
+    - CheckTime
     - Targets
     - OutValue
     values:
@@ -276,6 +358,16 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 1
       _dynamic: 1
+    - _fieldName: CheckTime
+      _node: {fileID: -6656740179022598063}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 1
     - _fieldName: Targets
       _node: {fileID: -6656740179022598063}
       _typeQualifiedName: System.Collections.Generic.IEnumerable`1[[UnityEngine.Collider,
@@ -296,14 +388,121 @@ MonoBehaviour:
         PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
-      - fieldName: DecorateeNode
-        node: {fileID: 2571434211919502421}
+      - fieldName: _decorateeNode
+        node: {fileID: -5609828259115960011}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   _group: {fileID: 11400000, guid: f75a72d436f9ff04abaed72584e1ee93, type: 2}
+--- !u!114 &-5609828259115960011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aab5bc464db4a28aa85a9026f8e60cb, type: 3}
+  m_Name: Value Equals Condition
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -520, y: -184}
+  ports:
+    keys:
+    - _aValue
+    - _bValue
+    - _decorateeNode
+    - _checkInterval
+    - _randomVariance
+    - _stops
+    - OutValue
+    values:
+    - _fieldName: _aValue
+      _node: {fileID: -5609828259115960011}
+      _typeQualifiedName: System.Object, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: bullet
+        node: {fileID: -3251859903702504439}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: _bValue
+      _node: {fileID: -5609828259115960011}
+      _typeQualifiedName: System.Object, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: _decorateeNode
+      _node: {fileID: -5609828259115960011}
+      _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: OutValue
+        node: {fileID: -6656740179022598063}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: _checkInterval
+      _node: {fileID: -5609828259115960011}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: _randomVariance
+      _node: {fileID: -5609828259115960011}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: _stops
+      _node: {fileID: -5609828259115960011}
+      _typeQualifiedName: NPBehave.Stops, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: OutValue
+      _node: {fileID: -5609828259115960011}
+      _typeQualifiedName: NPBehave.Condition, CabinIcarus.NPBehave, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _nodes
+        node: {fileID: -7408128668504457446}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _stops: 0
+  _checkInterval: 0
+  _randomVariance: 0
+  _equals: 0
 --- !u!114 &-5374479041829275740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,7 +516,7 @@ MonoBehaviour:
   m_Name: Get Go Value
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1368, y: 296}
+  position: {x: -1784, y: 264}
   ports:
     keys:
     - _component
@@ -368,7 +567,7 @@ MonoBehaviour:
   m_Name: Sequence
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -456, y: 312}
+  position: {x: -520, y: 184}
   ports:
     keys:
     - _nodes
@@ -380,6 +579,9 @@ MonoBehaviour:
         PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
+      - fieldName: OutValue
+        node: {fileID: 350578244071647035}
+        reroutePoints: []
       - fieldName: OutValue
         node: {fileID: -8290112104125163152}
         reroutePoints: []
@@ -396,8 +598,8 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
-      - fieldName: DecorateeNode
-        node: {fileID: 1566083799905542268}
+      - fieldName: _start
+        node: {fileID: -8331396637726180364}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -416,7 +618,7 @@ MonoBehaviour:
   m_Name: Get Child Group
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1704, y: 296}
+  position: {x: -2088, y: 248}
   ports:
     keys:
     - Damage
@@ -463,91 +665,6 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   _group: {fileID: 11400000, guid: bdd3769bede49514bbe06b5957c340de, type: 2}
---- !u!114 &-3597433904181013949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aab5bc464db4a28aa85a9026f8e60cb, type: 3}
-  m_Name: Value Equals Condition
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -696, y: -312}
-  ports:
-    keys:
-    - _aValue
-    - _bValue
-    - DecorateeNode
-    - _stops
-    - OutValue
-    values:
-    - _fieldName: _aValue
-      _node: {fileID: -3597433904181013949}
-      _typeQualifiedName: System.Object, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: bullet
-        node: {fileID: -3251859903702504439}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: _bValue
-      _node: {fileID: -3597433904181013949}
-      _typeQualifiedName: System.Object, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      _typeConstraintBaseTypeQualifiedName: 
-      connections: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: DecorateeNode
-      _node: {fileID: -3597433904181013949}
-      _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: OutValue
-        node: {fileID: -3251859903702504439}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 1
-      _dynamic: 0
-    - _fieldName: _stops
-      _node: {fileID: -3597433904181013949}
-      _typeQualifiedName: NPBehave.Stops, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      _typeConstraintBaseTypeQualifiedName: 
-      connections: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: OutValue
-      _node: {fileID: -3597433904181013949}
-      _typeQualifiedName: NPBehave.Condition, CabinIcarus.NPBehave, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: _nodes
-        node: {fileID: 5122335475774735825}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  _stops: 1
-  _checkInterval: 0
-  _randomVariance: 0
-  _equals: 1
 --- !u!114 &-3319395419578601475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,7 +719,7 @@ MonoBehaviour:
       _typeConstraintBaseTypeQualifiedName: 
       connections:
       - fieldName: OutValue
-        node: {fileID: -8245747199719791933}
+        node: {fileID: -7408128668504457446}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -631,29 +748,16 @@ MonoBehaviour:
   m_Name: Get Child Group
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1000, y: -328}
+  position: {x: -1256, y: -520}
   ports:
     keys:
-    - MoveDistance
     - bulletPoint
+    - MoveDistance
     - bulletGo
     - forward
     - OutValue
     - bullet
     values:
-    - _fieldName: MoveDistance
-      _node: {fileID: -3251859903702504439}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: Value
-        node: {fileID: 6364364266431319988}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 1
-      _dynamic: 1
     - _fieldName: bulletPoint
       _node: {fileID: -3251859903702504439}
       _typeQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -662,6 +766,19 @@ MonoBehaviour:
       connections:
       - fieldName: Value
         node: {fileID: 3309056246527880738}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 1
+      _dynamic: 1
+    - _fieldName: MoveDistance
+      _node: {fileID: -3251859903702504439}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: Value
+        node: {fileID: 6364364266431319988}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -699,8 +816,11 @@ MonoBehaviour:
         PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
-      - fieldName: DecorateeNode
-        node: {fileID: -3597433904181013949}
+      - fieldName: _nodes
+        node: {fileID: 8557508407134900008}
+        reroutePoints: []
+      - fieldName: _decorateeNode
+        node: {fileID: -8331396637726180364}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -712,17 +832,17 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
-      - fieldName: _aValue
-        node: {fileID: -3597433904181013949}
-        reroutePoints: []
-      - fieldName: _aValue
-        node: {fileID: 2571434211919502421}
-        reroutePoints: []
       - fieldName: _target
         node: {fileID: -8290112104125163152}
         reroutePoints: []
       - fieldName: CastOwner
         node: {fileID: -6656740179022598063}
+        reroutePoints: []
+      - fieldName: _aValue
+        node: {fileID: 2102740211539142947}
+        reroutePoints: []
+      - fieldName: _aValue
+        node: {fileID: -5609828259115960011}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -742,7 +862,7 @@ MonoBehaviour:
   m_Name: Unity Context Clock
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -744, y: -536}
+  position: {x: -792, y: -648}
   ports:
     keys:
     - OutValue
@@ -776,7 +896,7 @@ MonoBehaviour:
   m_Name: Layer Mask Value
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1256, y: -152}
+  position: {x: -1544, y: -136}
   ports:
     keys:
     - Value
@@ -810,7 +930,7 @@ MonoBehaviour:
   m_Name: Shared Blackboard
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1736, y: -520}
+  position: {x: -1800, y: -664}
   ports:
     keys:
     - _key
@@ -853,7 +973,7 @@ MonoBehaviour:
   m_Name: Create Blackboard
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -440, y: -552}
+  position: {x: -488, y: -664}
   ports:
     keys:
     - Clock
@@ -910,7 +1030,6 @@ MonoBehaviour:
   - {fileID: -839047543585344457}
   - {fileID: -6740646921893989150}
   - {fileID: -6656740179022598063}
-  - {fileID: 5122335475774735825}
   - {fileID: 3486225531904023984}
   - {fileID: 8085971383567605281}
   - {fileID: 602980313948686787}
@@ -918,15 +1037,18 @@ MonoBehaviour:
   - {fileID: -5374479041829275740}
   - {fileID: 5781862037234248686}
   - {fileID: -1278919173010233576}
-  - {fileID: -3597433904181013949}
-  - {fileID: 2571434211919502421}
   - {fileID: -8290112104125163152}
   - {fileID: -4541632516241922998}
   - {fileID: 583853796357609387}
-  - {fileID: -8245747199719791933}
   - {fileID: 1566083799905542268}
   - {fileID: -3900199029379488506}
   - {fileID: -7103930314749636843}
+  - {fileID: 2102740211539142947}
+  - {fileID: 8557508407134900008}
+  - {fileID: -5609828259115960011}
+  - {fileID: -7408128668504457446}
+  - {fileID: -8331396637726180364}
+  - {fileID: 350578244071647035}
   _varMap:
     _keys:
     - bullet
@@ -967,7 +1089,7 @@ MonoBehaviour:
   m_Name: Component Send Message
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -424, y: -360}
+  position: {x: -680, y: -552}
   ports:
     keys:
     - _component
@@ -1026,7 +1148,7 @@ MonoBehaviour:
       _typeConstraintBaseTypeQualifiedName: 
       connections:
       - fieldName: _nodes
-        node: {fileID: -8245747199719791933}
+        node: {fileID: 8557508407134900008}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -1035,6 +1157,49 @@ MonoBehaviour:
   Options: 0
   _messageName: UseSkill
   _isUpwards: 0
+--- !u!114 &350578244071647035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e58f830937684349a1e02cfdd3cb930, type: 3}
+  m_Name: Wait Node_Seconds
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -904, y: 120}
+  ports:
+    keys:
+    - _seconds
+    - OutValue
+    values:
+    - _fieldName: _seconds
+      _node: {fileID: 350578244071647035}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: OutValue
+      _node: {fileID: 350578244071647035}
+      _typeQualifiedName: NPBehave.Wait, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _nodes
+        node: {fileID: -4541632516241922998}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _seconds: 3
 --- !u!114 &583853796357609387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1048,7 +1213,7 @@ MonoBehaviour:
   m_Name: Root Action
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -776, y: 328}
+  position: {x: -904, y: 312}
   ports:
     keys:
     - OutValue
@@ -1061,6 +1226,9 @@ MonoBehaviour:
       connections:
       - fieldName: _nodes
         node: {fileID: -4541632516241922998}
+        reroutePoints: []
+      - fieldName: _stop
+        node: {fileID: -8331396637726180364}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -1080,7 +1248,7 @@ MonoBehaviour:
   m_Name: Sequence
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1432, y: 120}
+  position: {x: -1800, y: 136}
   ports:
     keys:
     - _nodes
@@ -1128,7 +1296,7 @@ MonoBehaviour:
   m_Name: Get Blackboard Value
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1752, y: -392}
+  position: {x: -1560, y: -408}
   ports:
     keys:
     - _blackBoard
@@ -1171,12 +1339,14 @@ MonoBehaviour:
   m_Name: Wait Condition
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -472, y: 104}
+  position: {x: -520, y: 24}
   ports:
     keys:
     - _waitTime
-    - DecorateeNode
+    - _decorateeNode
     - _stops
+    - _checkInterval
+    - _randomVariance
     - OutValue
     values:
     - _fieldName: _waitTime
@@ -1189,15 +1359,12 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-    - _fieldName: DecorateeNode
+    - _fieldName: _decorateeNode
       _node: {fileID: 1566083799905542268}
       _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: OutValue
-        node: {fileID: -4541632516241922998}
-        reroutePoints: []
+      connections: []
       _direction: 0
       _connectionType: 1
       _typeConstraint: 1
@@ -1212,15 +1379,32 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
+    - _fieldName: _checkInterval
+      _node: {fileID: 1566083799905542268}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: _randomVariance
+      _node: {fileID: 1566083799905542268}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
     - _fieldName: OutValue
       _node: {fileID: 1566083799905542268}
       _typeQualifiedName: NPBehave.Condition, CabinIcarus.NPBehave, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: _nodes
-        node: {fileID: 5122335475774735825}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -1229,7 +1413,7 @@ MonoBehaviour:
   _checkInterval: 0
   _randomVariance: 0
   _waitTime: 3
---- !u!114 &2571434211919502421
+--- !u!114 &2102740211539142947
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1242,17 +1426,19 @@ MonoBehaviour:
   m_Name: Value Equals Condition
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -488, y: -104}
+  position: {x: -520, y: -392}
   ports:
     keys:
     - _aValue
     - _bValue
-    - DecorateeNode
+    - _decorateeNode
+    - _checkInterval
+    - _randomVariance
     - _stops
     - OutValue
     values:
     - _fieldName: _aValue
-      _node: {fileID: 2571434211919502421}
+      _node: {fileID: 2102740211539142947}
       _typeQualifiedName: System.Object, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       _typeConstraintBaseTypeQualifiedName: 
@@ -1265,7 +1451,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: _bValue
-      _node: {fileID: 2571434211919502421}
+      _node: {fileID: 2102740211539142947}
       _typeQualifiedName: System.Object, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       _typeConstraintBaseTypeQualifiedName: 
@@ -1274,21 +1460,41 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-    - _fieldName: DecorateeNode
-      _node: {fileID: 2571434211919502421}
+    - _fieldName: _decorateeNode
+      _node: {fileID: 2102740211539142947}
       _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
       - fieldName: OutValue
-        node: {fileID: -6656740179022598063}
+        node: {fileID: 8557508407134900008}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
       _typeConstraint: 1
       _dynamic: 0
+    - _fieldName: _checkInterval
+      _node: {fileID: 2102740211539142947}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: _randomVariance
+      _node: {fileID: 2102740211539142947}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      _typeConstraintBaseTypeQualifiedName: 
+      connections: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
     - _fieldName: _stops
-      _node: {fileID: 2571434211919502421}
+      _node: {fileID: 2102740211539142947}
       _typeQualifiedName: NPBehave.Stops, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
@@ -1298,13 +1504,13 @@ MonoBehaviour:
       _typeConstraint: 2
       _dynamic: 0
     - _fieldName: OutValue
-      _node: {fileID: 2571434211919502421}
+      _node: {fileID: 2102740211539142947}
       _typeQualifiedName: NPBehave.Condition, CabinIcarus.NPBehave, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       _typeConstraintBaseTypeQualifiedName: 
       connections:
       - fieldName: _nodes
-        node: {fileID: 5122335475774735825}
+        node: {fileID: -7408128668504457446}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -1313,7 +1519,7 @@ MonoBehaviour:
   _stops: 1
   _checkInterval: 0
   _randomVariance: 0
-  _equals: 0
+  _equals: 1
 --- !u!114 &2876095795270977573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1327,7 +1533,7 @@ MonoBehaviour:
   m_Name: Add Force
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1816, y: 88}
+  position: {x: -2104, y: 40}
   ports:
     keys:
     - _forward
@@ -1434,7 +1640,7 @@ MonoBehaviour:
   m_Name: Get Component Value
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -728, y: -456}
+  position: {x: -968, y: -552}
   ports:
     keys:
     - _target
@@ -1476,7 +1682,7 @@ MonoBehaviour:
   m_Name: Get Blackboard Value
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1208, y: -568}
+  position: {x: -1560, y: -664}
   ports:
     keys:
     - _blackBoard
@@ -1522,7 +1728,7 @@ MonoBehaviour:
   m_Name: Get Blackboard Value
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1080, y: -24}
+  position: {x: -1544, y: -40}
   ports:
     keys:
     - _blackBoard
@@ -1552,59 +1758,6 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 1
   _key: radius
---- !u!114 &5122335475774735825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0489a26a8ae4630a622333ff7601316, type: 3}
-  m_Name: Parallel
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -168, y: -248}
-  ports:
-    keys:
-    - _nodes
-    - OutValue
-    values:
-    - _fieldName: _nodes
-      _node: {fileID: 5122335475774735825}
-      _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: OutValue
-        node: {fileID: -3597433904181013949}
-        reroutePoints: []
-      - fieldName: OutValue
-        node: {fileID: 2571434211919502421}
-        reroutePoints: []
-      - fieldName: OutValue
-        node: {fileID: 1566083799905542268}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 1
-      _dynamic: 0
-    - _fieldName: OutValue
-      _node: {fileID: 5122335475774735825}
-      _typeQualifiedName: NPBehave.Parallel, CabinIcarus.NPBehave, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      _typeConstraintBaseTypeQualifiedName: 
-      connections:
-      - fieldName: _nodes
-        node: {fileID: -8245747199719791933}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  _successPolicy: 1
-  _failurePolicy: 1
 --- !u!114 &5781862037234248686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1618,7 +1771,7 @@ MonoBehaviour:
   m_Name: Get Target Forward
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1848, y: -88}
+  position: {x: -2376, y: 72}
   ports:
     keys:
     - _target
@@ -1664,7 +1817,7 @@ MonoBehaviour:
   m_Name: Get Blackboard Value
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1448, y: -456}
+  position: {x: -1560, y: -536}
   ports:
     keys:
     - _blackBoard
@@ -1707,7 +1860,7 @@ MonoBehaviour:
   m_Name: For Execute Action
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1144, y: 120}
+  position: {x: -1544, y: 104}
   ports:
     keys:
     - _enumerables
@@ -1773,6 +1926,54 @@ MonoBehaviour:
       connections:
       - fieldName: ChildNode
         node: {fileID: -6656740179022598063}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &8557508407134900008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7179220c8971cb49962533167236059, type: 3}
+  m_Name: Sequence
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -824, y: -328}
+  ports:
+    keys:
+    - _nodes
+    - OutValue
+    values:
+    - _fieldName: _nodes
+      _node: {fileID: 8557508407134900008}
+      _typeQualifiedName: NPBehave.Node, CabinIcarus.NPBehave, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: OutValue
+        node: {fileID: 158525076802082008}
+        reroutePoints: []
+      - fieldName: OutValue
+        node: {fileID: -3251859903702504439}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 1
+      _dynamic: 0
+    - _fieldName: OutValue
+      _node: {fileID: 8557508407134900008}
+      _typeQualifiedName: NPBehave.Sequence, CabinIcarus.NPBehave, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _typeConstraintBaseTypeQualifiedName: 
+      connections:
+      - fieldName: _decorateeNode
+        node: {fileID: 2102740211539142947}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
